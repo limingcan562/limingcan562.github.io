@@ -1,0 +1,23 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "deploy": "npm run generate && push-dir --dir=dist --branch=master --force"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "core-js": "^3.9.1",
+    "less": "^4.1.1",
+    "less-loader": "^9.0.0",
+    "nuxt": "^2.15.3"
+  },
+  "devDependencies": {
+    "gh-pages": "^3.1.0",
+    "push-dir": "^0.4.1"
+  }
+}

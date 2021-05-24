@@ -1,6 +1,7 @@
 <template>
   <div class="main_container">
-    这是一个正常部署的页面222
+    <nuxt-link to="/">主页</nuxt-link>
+    <nuxt-link to="/about">关于</nuxt-link>
   </div>
 </template>
 

@@ -8,7 +8,7 @@ const txtView = 'preview in';
 
 console.log('[deploy]'.yellow, txtStart.green);
 ghpages.publish('./dist', {
-    branch: 'master',
+    branch: 'gh-pages',
     repo: 'https://github.com/limingcan562/limingcan562.github.io.git'
 }, (err) => {
     if (err) {

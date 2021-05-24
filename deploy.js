@@ -19,3 +19,4 @@ ghpages.publish('./dist', {
         console.log('[deploy]'.bold.yellow, `${txtView} ${onlineUrl.white}`);
     }
 });
+

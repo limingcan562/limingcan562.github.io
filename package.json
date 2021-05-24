@@ -7,7 +7,7 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "deploy": "npm run generate && push-dir --dir=dist --branch=master --force"
+    "deploy": "npm run generate && push-dir --dir=dist --branch=gh-pages --force"
   },
   "dependencies": {
     "colors": "^1.4.0",

@@ -1,3 +1,5 @@
+const path = require('path')
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -36,6 +38,27 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    transpile: [/^element-ui/],
+    /*
+    ** You can extend webpack config here
+    */
+    extend (config) {
+      config.module.rules.push({
+        test: /\.md$/,
+        loader: 'frontmatter-markdown-loader',
+        // include: path.resolve(__dirname, 'contents'),
+        options: {
+          vue: {
+            root: "dynamicMarkdown"
+          }
+        }
+      })
+    }
+  },
+  
+
+  server: {
+    port: 2000 // default: 3000
   },
 
   target: 'static'

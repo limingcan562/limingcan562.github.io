@@ -6,8 +6,14 @@
 </template>
 
 <script>
-export default {
+import md from './index.md';
+console.log(md);
 
+export default {
+  async asyncData() {
+    // const md =  await import('./index.md');
+    // console.log(md);
+  }
 }
 </script>
 

@@ -3,22 +3,26 @@ const path = require('path')
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'welcome',
+    title: 'lMC`s Blog',
     htmlAttrs: {
       lang: 'en'
     },
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1,user-scalable=no' },
+      { name: 'keywords', content: '李明灿的博客'},
+      { hid: 'description', name: 'description', content: '李明灿的博客，用来记录李明灿平时项目的一些总结，复盘' },
+      { name: 'author', content: '804666207@qq.com'},
+      { name: 'renderer', content: 'webkit'}
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/my_icon.ico' }
     ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '~/assets/less/common.less'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -47,11 +51,7 @@ export default {
         test: /\.md$/,
         loader: 'frontmatter-markdown-loader',
         // include: path.resolve(__dirname, 'contents'),
-        options: {
-          vue: {
-            root: "dynamicMarkdown"
-          }
-        }
+        options: {}
       })
     }
     

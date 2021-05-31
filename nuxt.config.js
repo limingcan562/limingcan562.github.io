@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('path');
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -10,7 +10,7 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1,user-scalable=no' },
-      { name: 'keywords', content: '李明灿的博客'},
+      { name: 'keywords', content: '李明灿的博客, lMC`s Blog'},
       { hid: 'description', name: 'description', content: '李明灿的博客，用来记录李明灿平时项目的一些总结，复盘' },
       { name: 'author', content: '804666207@qq.com'},
       { name: 'renderer', content: 'webkit'}
@@ -42,7 +42,9 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: [/^element-ui/],
+    transpile: [
+      'gsap'
+    ],
     /*
     ** You can extend webpack config here
     */
@@ -59,7 +61,7 @@ export default {
   
 
   server: {
-    port: 2000 // default: 3000
+    port: 2001 // default: 3000
   },
 
   target: 'static'

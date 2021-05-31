@@ -6,17 +6,18 @@ const txtEnd = 'dist successfully deployed!';
 const txtView = 'preview in';
 
 
-console.log('[deploy]'.bold.yellow, txtStart.bold.green);
+console.log('[deploy]'.bold.yellow, txtStart.bold.yellow);
 ghpages.publish('./dist', {
     branch: 'gh-pages',
     repo: 'git@github.com:limingcan562/limingcan562.github.io.git',
-    dotfiles: true
+    dotfiles: true,
+    message: 'deploy'
 }, err => {
     if (err) {
         console.log('[error]'.bold.red, JSON.stringify(err).red);
     } else {
-        console.log('[deploy]'.bold.yellow, txtEnd.bold.green);
-        console.log('[deploy]'.bold.yellow, `${txtView} ${onlineUrl.white}`);
+        console.log('[deploy]'.bold.green, txtEnd.bold.green);
+        console.log('[deploy]'.bold.green, `${txtView.bold.green} ${onlineUrl.underline.white}`);
     }
 });
 

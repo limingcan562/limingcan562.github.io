@@ -1,17 +1,32 @@
 <template>
-    <div class="about_container">
-        关于页面
+    <div class="about_content">
+        <Header />
 
-        <nuxt-link to="/">回到首页</nuxt-link>
+        <main>
+            关于我
+        </main>
     </div>
 </template>
 
 <script>
-export default {
+import Header from '@/components/header/index.vue';
 
+export default {
+    async asyncData() {
+    // const md =  await import('./index.md');
+    // console.log(md);
+    },
+
+    components: {
+        Header
+    }
 }
 </script>
 
 <style>
-
+main{
+    width: 630px;
+    padding: 40px 20px 0;
+    margin: 0 auto;
+}
 </style>

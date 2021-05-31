@@ -1,21 +1,52 @@
 <template>
 <header>
-    <div class="l">
+    <div class="t">
         <h1>
             <nuxt-link to="/">🍁lMC`s Blog</nuxt-link>
-            <p class="des">work hard + lucky ? success : null</p>
         </h1>
+        <nav>
+            <nuxt-link to="/">主页</nuxt-link>
+            <nuxt-link class="about_btn" to="/about">关于</nuxt-link>
+        </nav>
     </div>
-    <div class="r">
-        <nuxt-link to="/">主页</nuxt-link>
-        <nuxt-link class="about_btn" to="/about">关于</nuxt-link>
-    </div>
+    <p class="header_des" id="header_des">{{startDesText}}</p>
 </header>
 </template>
 
 <script>
-export default {
+import {gsap}  from 'gsap';
+import TextPlugin from 'gsap/TextPlugin';
+gsap.registerPlugin(TextPlugin);
 
+
+export default {
+    data() {
+        return {
+            startDesText: 'Success',
+            desText: 'Work hard + Lucky ? Success : Nothing'
+        }
+    },
+
+    mounted() {
+        const 
+        delay = 2,
+        duration = 3.5;
+
+        this.des_Ani = gsap.timeline({
+            delay: delay - 1,
+            defaults: {
+                duration,
+                ease: 'none'
+            },
+            onComplete: () => {
+                setTimeout(() => this.des_Ani.reverse(), delay * 1000);
+            },
+            onReverseComplete: () => {
+                setTimeout(() => this.des_Ani.restart(), delay * 1000);
+            }
+        })
+        .to('#header_des', {text: this.desText});
+    },
 }
 </script>
 
@@ -23,40 +54,46 @@ export default {
 header{
     max-width: 630px;
     margin: 0 auto;
-    // border-bottom: 1px solid rgb(238, 238, 238);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 40px 20px 0;
+    
 
     a{
         color: #000;
     }
 
-    .l{
+    .t{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
         h1{
             font-size: 28px;
             color: #666;
         }
 
-        .des{
-            padding: 5px 8px;
-            margin-top: 5px;
-            font-size: 18px;
-            background: rgba(0, 0, 0, .2);
-        }
+        nav{
+            .about_btn{
+                margin-left: 12px;
+            }
+
+            a{
+                color: #666;
+                font-size: 13px;
+                font-weight: 500;
+            }
+        }   
     }
 
-    .r{
-        .about_btn{
-            margin-left: 12px;
-        }
-
-        a{
-            color: #666;
-            font-size: 14px;
-            font-weight: 500;
-        }
+    .header_des{
+        padding: 0 8px;
+        margin-top: 8px;
+        font-size: 15px;
+        background: rgb(255, 73, 73, .7);
+        display: inline-block;
+        font-family: Rockwell, sans-serif;
+        letter-spacing: 1px;
+        line-height: 25px;
+        color: #fff;
     }
 }
 </style>

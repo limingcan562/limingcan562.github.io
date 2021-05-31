@@ -85,15 +85,14 @@ header{
     }
 
     .header_des{
-        padding: 0 8px;
+        padding: 5px 8px;
         margin-top: 8px;
         font-size: 15px;
-        background: rgb(255, 73, 73, .7);
+        // color: rgb(255, 73, 73, .7);
+        color: #d02322;
         display: inline-block;
         font-family: Rockwell, sans-serif;
         letter-spacing: 1px;
-        line-height: 25px;
-        color: #fff;
     }
 }
 </style>

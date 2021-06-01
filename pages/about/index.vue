@@ -2,10 +2,6 @@
     <div class="about_content">
         <Header />
         <main>
-            <!-- <div 
-                class="md_content" 
-                v-html="introduceData"
-            ></div> -->
             <section class="about">
                 <h3>{{aboutData.title}}</h3>
                 <ul>
@@ -42,19 +38,22 @@
 <script>
 import Header from '@/components/header/index.vue';
 import prism from 'prismjs';
-// console.log(prism);
 import 'prismjs/themes/prism-solarizedlight.css';
 
 export default {
-    // async asyncData() {
-    //     const introduce =  await import('./introduce.md');
-    //     // console.log(introduce);
-
-    //     return {
-    //         introduceData: introduce.html
-    //     }; 
-    // },
-
+    head() {
+        return {
+            title:'lMC`s Blog | about',
+            meta: [
+                // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+                {
+                    hid: 'description',
+                    name: 'description',
+                    content: '关于李明灿的兴趣，爱好，联系方式'
+                }
+            ]
+        }
+    },
     components: {
         Header
     },
@@ -111,7 +110,7 @@ main{
 
     li{
         line-height: 35px;
-        font-size: 15px;
+        font-size: 14px;
         display: flex;
         align-items: center;
 

@@ -61,7 +61,7 @@ export default {
   
 
   server: {
-    port: 2001 // default: 3000
+    port: 2000 // default: 3000
   },
 
   target: 'static'

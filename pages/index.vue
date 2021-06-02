@@ -6,90 +6,72 @@
         v-for="(item, index) in previewData"
         :key="index"
       >
-      <h2><nuxt-link class="click_btn" :to="'/' + item.path">{{item.title}}</nuxt-link></h2>
-      <p class="des">{{item.des}}</p>
-      <p class="time">{{item.createTime}}</p>
+      <h2><nuxt-link class="click_btn" :to="item.path">{{item.title}}</nuxt-link></h2>
+      <p class="des">📃 {{item.des}}</p>
+      <p class="time">⏰ {{item.englishTime}}</p>
       </section>
     </main>
+
+    <Footer />
   </div>
 </template>
 
 <script>
 import Header from '@/components/header/index.vue';
-import sortByBig from '@/plugins/sortByBig';
+import Footer from '@/components/footer/index.vue';
+import getMdName from '@/plugins/getMdName';
 
 export default {
-  async asyncData() {
+  async asyncData({getEnglishMonth}) {
+    // console.log(getEnglishMonth);
     const data = require.context('~/blog', true, /\.md$/);
-    // console.log(data.keys(), 11);
-    // console.log(data.keys());
-
-    //   // console.log(element);
-    //   app.getPathName(element)
-    // });
 
     // 首页预览数据
-    let timeArr = [];
-    let previewData = data.keys().map(key => {
-      // console.log(key);
-      const {attributes: {title, des, createTime, path}} = data(key);
-      // console.log(key);
+    let previewData = data.keys().map(src => {
+      // console.log(src);
+      // 获取文件名字
+      const filName = `/posts/${getMdName(src)}`;
+      const {attributes: {createTime, title, des}} = data(src);
 
-      timeArr.push(createTime);
+      const 
+      year = createTime.split('-')[0],
+      month = getEnglishMonth(createTime.split('-')[1]),
+      day = createTime.split('-')[2],
+      englishTime = `${month} ${day} ${year}`;
 
       return {
         title,
         des,
         createTime,
-        path
+        englishTime,
+        path: filName
       };
     });
 
-    // return {
-    //   previewData
-    // }
     // 按照时间排序
-
-    timeArr = sortByBig(timeArr);
-    console.log(timeArr);
-    // timeArr.map(item =>　{
-    //   console.log(new Date(item));
-    // })
-
-    // console.log(timeArr);
-
+    previewData.sort((obj1, obj2) => new Date(obj2.createTime) - new Date(obj1.createTime));
+    
+    return {
+      previewData
+    };
   },
 
   components: {
-    Header
+    Header,
+    Footer
   },
-
-  methods: {
-    // 获取引入的md名字，可用来当做路由path
-    getPathName(str) {
-      return str.match(/\n(\S*).md/);
-    }
-  },
-
-  mounted() {
-    // console.log(this.previewData);
-    // const s = new Date('2021-05-31').getTime();
-    // const e = new Date('2021-06-01').getTime();
-    // console.log(e - s);
-    // let arr = [4, 51, 2, 1];
-    // console.log(getMax(arr));
-  }
 }
 </script>
 
 <style lang="less" scoped>
 .index_cotent{
+  padding: 0 20px;
   max-width: 630px;
   margin: 0 auto;
-  // background: #000;
 
   .blog_content{
-    padding: 50px 20px 40px;
+    padding: 35px 0 40px;
+    min-height: 60vh;
   }
 }
 </style>
@@ -116,7 +98,6 @@ export default {
 
       h2{
         font-size: 24px;
-        margin-bottom: 10px;
         position: relative;
 
         a{
@@ -124,18 +105,21 @@ export default {
         }
       }
       .des{
-        font-size: 12px;
-        color: #fff;
-        background: rgba(255, 55, 28, .7);
+        font-size: 14px;
+        // color: #fff;
+        // padding: 5px 8px;
+        // background: rgba(255, 55, 28, .7);
+        color: #333;
         display: inline-block;
-        padding: 5px 8px;
+        margin-top: 8px;
       }
       .time{
         // color: #be4848;
+        font-family: Merriweather,Georgia,serif;
         padding-top: 5px;
-        font-size: 14px;
-        text-align: right;
-        display: none;
+        font-size: 12px;
+        // text-align: right;
+        // display: none;
       }
     }
   }

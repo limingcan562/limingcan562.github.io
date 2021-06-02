@@ -32,11 +32,13 @@
                 </ul>
             </section>
         </main>
+        <Footer />
     </div>
 </template>
 
 <script>
 import Header from '@/components/header/index.vue';
+import Footer from '@/components/footer/index.vue';
 import prism from 'prismjs';
 import 'prismjs/themes/prism-solarizedlight.css';
 
@@ -55,7 +57,8 @@ export default {
         }
     },
     components: {
-        Header
+        Header,
+        Footer
     },
 
     data() {
@@ -82,7 +85,7 @@ export default {
             contactData: {
                 title: '联系我',
                 des: [
-                    '📮E-mail：804666207@qq.com',
+                    '📮E-mail：leemimgcan@gmail.com',
                     '🐧QQ：804666207',
                 ]
             },
@@ -96,16 +99,20 @@ export default {
 </script>
 
 <style lang="less" scoped>
-main{
+.about_content{
+    padding: 0 20px;
     max-width: 630px;
-    padding: 35px 20px;
     margin: 0 auto;
+}
+main{
+    padding: 35px 0;
     font-family: "Montserrat",serif;
 
     h3{
         font-size: 20px;
         padding-bottom: 10px;
         margin-top: 20px;
+        color: #f18017;
     }
 
     li{

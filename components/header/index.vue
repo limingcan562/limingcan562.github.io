@@ -52,9 +52,7 @@ export default {
 
 <style lang="less" scoped>
 header{
-    max-width: 630px;
-    margin: 0 auto;
-    padding: 40px 20px 0;
+    padding: 35px 0 0;
     
 
     a{

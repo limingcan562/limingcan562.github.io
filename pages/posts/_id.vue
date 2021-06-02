@@ -2,7 +2,7 @@
     <div class="posts_content">
         <PostsHeader />
         <main>
-            <div class="md_content"
+            <div class="md_content markdown-body"
                 v-html="posts.html"
             >
             </div>
@@ -14,6 +14,7 @@
 import PostsHeader from '@/components/header/PostsHeader.vue';
 import prism from 'prismjs';
 import 'prismjs/themes/prism-solarizedlight.css';
+import 'github-markdown-css';
 
 export default {
     components: {

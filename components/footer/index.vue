@@ -80,7 +80,7 @@ footer{
 
     .des{
         font-size: 12px;
-        transform: scale(.85);
+        transform: scale(.88);
         transform-origin: 0 center;
     }
 }

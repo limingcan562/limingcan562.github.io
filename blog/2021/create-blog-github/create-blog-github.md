@@ -37,7 +37,7 @@ createTime: 2021-6-2
     - 我是将打包好的文件推送到仓库的`gh-pages`分支，所以需要把个人主页映射到`gh-pages`分支，这样当你打开个人主页是，其实看到的是编译好的`gh-pages`分支内容
     - 推送 `gh-pages` 也是个坑，后续会讲
 
-1. OK，目前我们`github`部分就完成了
+5. OK，目前我们`github`部分就完成了
 
 
 > ### 在本地构建项目  
@@ -51,12 +51,12 @@ createTime: 2021-6-2
 > ### 部署踩坑  
 1. `gh-pages`一直推不上`github`，等了好久以后报错问题！
 2. 代码推到`gh-pages` 分支后，为什么不能预览，资源`404`！
-3. 使用`gh-pages`推送分支时，老是报错！
+3. 使用`gh-pages`推送分支部署时，老是报错！
 
 
 - #### `gh-pages`一直推不上`github`，等了好久以后报错问题！  
 这个问题真的快把我弄死，疯狂查阅资料，各种试，最后终于找出了问题！  
-大家用`github`的时候真的不要用`hhtps`的方式，一定要用`ssh`的方式！重要事情说三遍：**`ssh`的方式**，**`ssh`的方式**，**`ssh`的方式**！  
+大家用`github`的时候真的不要用`https`的方式，一定要用`ssh`的方式！重要事情说三遍：**`ssh`的方式**，**`ssh`的方式**，**`ssh`的方式**！  
 具体的配置在`deploy.js`里，大家可以参考  
 
 _另外用`souretree`的同学，记得连接`github`的方式也用`ssh`的，这样就不会存在拉不下来，或者推不上去的问题_
@@ -75,7 +75,7 @@ ghpages.publish('./dist', {
 ````  
 重点是把`dotfiles: true`，这样`.nojekyll`才能推上去
 
-- #### 使用`gh-pages`推送分支时，老是报错！
+- #### 使用`gh-pages`推送分支部署时，老是报错！
 有时我们可能使用`gh-pages`推送分支，或者把远程`gh-pages`删除在推送，或者做了什么乱七八糟的操作以后，发现经常报错，类似：
 ````javascript
 {"code":128,"message":"fatal: couldn't find remote ref refs/heads/gh-pages\n","name":"ProcessError"}

@@ -25,6 +25,10 @@ export default {
     '~/blog/*'
   ],
 
+  generate: {
+    subFolders: false
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '~/assets/less/global.less',
@@ -53,7 +57,8 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: [
-      'gsap'
+      'gsap',
+      'prismjs'
     ],
     /*
     ** You can extend webpack config here
@@ -62,7 +67,7 @@ export default {
       config.module.rules.push({
         test: /\.md$/,
         loader: 'frontmatter-markdown-loader',
-        // include: path.resolve(__dirname, 'contents'),
+        include: path.resolve(__dirname, 'blog'),
         options: {}
       })
     }

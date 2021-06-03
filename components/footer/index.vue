@@ -39,14 +39,14 @@ export default {
 
 <style lang="less" scoped>
 footer{
-    padding: 30px 0;
-    font-size: 14px;
+    padding: 30px 0 35px;
+    font-size: 13px;
     color: #666;
     font-family: Merriweather,Georgia,serif;
     // text-align: right;
 
     nav{
-        padding-bottom: 5px;
+        padding-bottom: 10px;
     }
 
     ul{

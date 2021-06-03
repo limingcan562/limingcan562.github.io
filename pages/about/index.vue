@@ -39,8 +39,6 @@
 <script>
 import Header from '@/components/header/index.vue';
 import Footer from '@/components/footer/index.vue';
-import prism from 'prismjs';
-import 'prismjs/themes/prism-solarizedlight.css';
 
 export default {
     head() {
@@ -91,10 +89,6 @@ export default {
             },
         };
     },
-
-    mounted() {
-        prism.highlightAll();
-    }
 }
 </script>
 

@@ -7,18 +7,23 @@
             >
             </div>
         </main>
+        <Footer />
     </div>
 </template>
 
 <script>
 import PostsHeader from '@/components/header/PostsHeader.vue';
+import Footer from '@/components/footer/index.vue';
 import prism from 'prismjs';
-import 'prismjs/themes/prism-solarizedlight.css';
-import 'github-markdown-css';
+import 'prismjs/themes/prism.css';
+import '@/assets/css/github-markdown.css';
+// import 'github-markdown-css';
+
 
 export default {
     components: {
-        PostsHeader
+        PostsHeader,
+        Footer
     },
 
     async asyncData({params}) {
@@ -55,7 +60,6 @@ export default {
     },
 
     mounted() {
-
         prism.highlightAll();
     }
 }
@@ -69,7 +73,6 @@ export default {
 }
 main{
     padding: 40px 0 40px;
-    font-family: "Montserrat",serif;
 }
 </style>
 

@@ -1,0 +1,85 @@
+<!doctype html>
+<html data-n-head-ssr lang="en" data-n-head="%7B%22lang%22:%7B%22ssr%22:%22en%22%7D%7D">
+  <head>
+    <title>lMC`s Blog | posts</title><meta data-n-head="ssr" charset="utf-8"><meta data-n-head="ssr" name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><meta data-n-head="ssr" name="keywords" content="李明灿的博客, lMC`s Blog"><meta data-n-head="ssr" data-hid="description" name="description" content="李明灿的博客，用来记录李明灿平时项目的一些总结，复盘"><meta data-n-head="ssr" name="author" content="804666207@qq.com"><meta data-n-head="ssr" name="renderer" content="webkit"><link data-n-head="ssr" rel="icon" type="image/x-icon" href="/lMC.ico"><link rel="preload" href="/_nuxt/df8092d.js" as="script"><link rel="preload" href="/_nuxt/3129581.js" as="script"><link rel="preload" href="/_nuxt/096794f.js" as="script"><link rel="preload" href="/_nuxt/d28fee1.js" as="script"><link rel="preload" href="/_nuxt/0181056.js" as="script"><link rel="preload" href="/_nuxt/245d7ba.js" as="script"><link rel="preload" href="/_nuxt/5043da1.js" as="script"><style data-vue-ssr-id="769ae34c:0 3e39147c:0 fa7ff0ca:0 bb942a3a:0 31675b12:0 7288a890:0">*{margin:0;padding:0}body,html{font-family:Merriweather,Georgia,serif}img{display:block}a{text-decoration:none}li{list-style:none}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{box-shadow:inset006pxrgba(0,0,0,.3);border-radius:10px}::-webkit-scrollbar-thumb{border-radius:10px;background:rgba(0,0,0,.3);-webkit-box-shadow:inset006pxrgba(0,0,0,.5)}.posts_content .md_content{font-size:14px;font-family:Merriweather,Georgia,serif}.posts_content .md_content h1{color:#f18017}.posts_content .md_content ol li{list-style:decimal}.posts_content .md_content ul li{list-style:disc}.nuxt-progress{position:fixed;top:0;left:0;right:0;height:5px;width:0;opacity:1;transition:width .1s,opacity .4s;background-color:#000;z-index:999999}.nuxt-progress.nuxt-progress-notransition{transition:none}.nuxt-progress-failed{background-color:red}.posts_content[data-v-b425f2b8]{padding:0 20px;max-width:630px;margin:0 auto}main[data-v-b425f2b8]{padding:40px 0;font-family:Montserrat,serif}header[data-v-9121e808]{padding:35px 0 0}header .t[data-v-9121e808]{display:flex;justify-content:space-between;align-items:center}header .t h1[data-v-9121e808]{font-size:22px}header .t h1 a[data-v-9121e808]{color:#f54747}header .t nav .about_btn[data-v-9121e808]{margin-left:12px}header .t nav a[data-v-9121e808]{color:#666;font-size:13px;font-weight:500}footer[data-v-73235039]{padding:30px 0;font-size:14px;color:#666;font-family:Merriweather,Georgia,serif}footer nav[data-v-73235039]{padding-bottom:5px}footer ul[data-v-73235039]{display:flex;align-items:center}footer li[data-v-73235039]:first-child:before{display:none}footer li[data-v-73235039]:before{content:"";display:inline-block;margin:0 8px;width:5px;height:5px;border-top:1px solid #666;border-right:1px solid #666;transform:rotate(45deg)}footer a[data-v-73235039]{text-decoration:underline;color:#444}footer .des[data-v-73235039]{font-size:12px;transform:scale(.85);transform-origin:0 center}</style><link rel="preload" href="/_nuxt/static/1622703106/posts/create-blog-github/state.js" as="script"><link rel="preload" href="/_nuxt/static/1622703106/posts/create-blog-github/payload.js" as="script"><link rel="preload" href="/_nuxt/static/1622703106/manifest.js" as="script">
+  </head>
+  <body>
+    <div data-server-rendered="true" id="__nuxt"><!----><div id="__layout"><div class="posts_content" data-v-b425f2b8><header data-v-9121e808 data-v-b425f2b8><div class="t" data-v-9121e808><h1 data-v-9121e808><a href="/" class="nuxt-link-active" data-v-9121e808>🍁Posts</a></h1> <nav data-v-9121e808><a href="/" class="nuxt-link-active" data-v-9121e808>主页</a> <a href="/about" class="about_btn" data-v-9121e808>关于</a></nav></div></header> <main data-v-b425f2b8><div class="md_content markdown-body" data-v-b425f2b8><h1>如何使用nuxtJs在github.io搭建自己博客</h1>
+<blockquote>
+<p>可以使用 nuxtJS DIY 一个专属自己的博客，利用 <code>markdown</code> 来记录博客</p>
+</blockquote>
+<h2>概述</h2>
+<ol>
+<li>设置 <code>github</code> 上的个人主页</li>
+<li>在本地构建项目</li>
+<li>踩坑</li>
+</ol>
+<blockquote>
+<h3>设置 <code>github</code> 上的个人主页</h3>
+</blockquote>
+<ol>
+<li>
+<p>新建一个项目
+登录以后，点击主页的 <code>New</code> 按钮
+<img src="../md/create-blog-github/step_1.png" alt=""></p>
+</li>
+<li>
+<p>设置未来 <code>github.io</code> 主页的链接
+<img src="../md/create-blog-github/step_2.png" alt=""></p>
+<p><strong>注意：</strong></p>
+<ul>
+<li><code>Repository name</code> 请填写前面的 <code>Owner</code> 名字 + <code>.github.io</code></li>
+<li>如图示，<code>Repository name</code> 就应该写 <code>limingcan562.github.io</code> 这样后面可以直接用 <code>limingcan562.github.io</code> 打开你的个人主页</li>
+</ul>
+</li>
+<li>
+<p>完成以后回到主页你会发现仓库多了一个叫 <code>limingcan562.github.io</code> 的仓库（请取你自己的名字），进入以后点击 <code>Settings</code>
+<img src="../md/create-blog-github/step_3.png" alt=""></p>
+</li>
+<li>
+<p>修改个人主页映射对应的仓库分支
+<img src="../md/create-blog-github/step_4.png" alt=""></p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>我是将打包好的文件推送到仓库的<code>gh-pages</code>分支，所以需要把个人主页映射到<code>gh-pages</code>分支，这样当你打开个人主页是，其实看到的是编译好的<code>gh-pages</code>分支内容</li>
+<li>推送 <code>gh-pages</code> 也是个坑，后续会讲</li>
+</ul>
+</li>
+<li>
+<p>OK，目前我们<code>github</code>部分就完成了</p>
+</li>
+</ol>
+<blockquote>
+<h3>在本地构建项目</h3>
+</blockquote>
+<p>这个就不过多的赘述了，因为我的博客是用<code>nuxtJs</code>做的，所以直接上官网看看文档，直接搞个<code>demo</code>项目下来，这里主要介绍下我用到的插件文档</p>
+<ul>
+<li><a href="https://www.nuxtjs.cn/"><code>nuxtJs</code></a></li>
+<li><a href="https://www.npmjs.com/package/"><code>frontmatter-markdown-loader</code></a>用来编译<code>md</code>的<code>loader</code></li>
+<li><a href="https://www.npmjs.com/package/github-markdown-css"><code>github-markdown-css</code></a> 美化编译后的<code>md</code></li>
+<li><a href="https://www.npmjs.com/package/prismjs"><code>prismjs</code></a> 用来高亮<code>md</code></li>
+<li><a href="https://www.npmjs.com/package/gh-pages"><code>gh-pages</code></a> 用来发布打包文件到<code>github</code>的<code>gh-pages</code>分支</li>
+</ul>
+<blockquote>
+<h3>踩坑</h3>
+</blockquote>
+<ul>
+<li>
+<h4><code>gh-pages</code>一直推不上<code>github</code>，等了好久以后报错问题！</h4>
+</li>
+</ul>
+<p>这个问题真的快把我弄死，疯狂查阅资料，各种试，最后终于找出了问题！<br>
+大家用<code>github</code>的时候真的不要用<code>hhtps</code>的方式，一定要用<code>ssh</code>的方式！重要事情说三遍：<strong><code>ssh</code>的方式</strong>，<strong><code>ssh</code>的方式</strong>，<strong><code>ssh</code>的方式</strong>！<br>
+具体的配置在<code>deploy.js</code>里，大家可以参考</p>
+<p><em>另外用<code>souretree</code>的同学，记得连接<code>github</code>的方式也用<code>ssh</code>的，这样就不会存在拉不下来，或者推不上去的问题</em></p>
+<ul>
+<li>
+<h4>代码推到<code>gh-pages</code> 分支后，为什么不能预览，资源<code>404</code>！</h4>
+</li>
+</ul>
+<p>首先，我们代码提交到<code>gh-pages</code>分支时，我们会看到，里面的文件都有，但是就是没有
+{"code":128,"message":"fatal: couldn't find remote ref refs/heads/gh-pages\n","name":"ProcessError"}
+当我们把打包好的文件推送到<code>github</code>时，输入主页地址，结果发现各种资源报错，因为我们推代码的时候，打包出来的文件里有个<code>.nojekyll</code>文件，这个文件很重要，如果<code>github</code>上没有这个文件，是会忽略掉其他<code>_</code>开头的文件的，具体可以参考<a href="https://www.cnblogs.com/babywhale/p/13560573.html">这篇文章</a></p>
+</div></main> <footer data-v-73235039 data-v-b425f2b8><nav data-v-73235039><ul data-v-73235039><li data-v-73235039><a href="/" class="nuxt-link-active" data-v-73235039>home</a></li><li data-v-73235039><a href="/about" data-v-73235039>about</a></li></ul></nav> <p class="des" data-v-73235039>written by 🍁lMC</p></footer></div></div></div><script defer src="/_nuxt/static/1622703106/posts/create-blog-github/state.js"></script><script src="/_nuxt/df8092d.js" defer></script><script src="/_nuxt/0181056.js" defer></script><script src="/_nuxt/245d7ba.js" defer></script><script src="/_nuxt/5043da1.js" defer></script><script src="/_nuxt/3129581.js" defer></script><script src="/_nuxt/096794f.js" defer></script><script src="/_nuxt/d28fee1.js" defer></script>
+  </body>
+</html>

@@ -38,11 +38,13 @@ li{
 ::-webkit-scrollbar-thumb {
     border-radius:10px;
     background:rgba(255, 146, 22, 0.8);
-    -webkit-box-shadow: inset006pxrgba(0,0,0,0.5);
+    box-shadow: inset006pxrgba(0,0,0,0.5);
+    // box-shadow: rgba(0, 0, 0, .5);
 }
-// ::-webkit-scrollbar-thumb:window-inactive {
-//     background:rgba(255,0,0,0.4);
-// }
+::-webkit-scrollbar-thumb:window-inactive {
+    // background:rgba(255,0,0,0.4);
+    background: #ff7a7a;
+}
 // ::scrollbar-base-color:color{
 //     background: #000;
 // }

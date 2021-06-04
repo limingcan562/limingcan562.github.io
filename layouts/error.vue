@@ -7,6 +7,7 @@
             </div>
             <NuxtLink class="back_btn" to="/" title="走近我">
                 <img :class="{floatAni: load}" src="~/assets/img/leaves.png">
+                <p>走近我</p>
             </NuxtLink>
         </div>
 
@@ -42,18 +43,20 @@ export default {
     justify-content: center;
 
     .not_found{
+        margin-top: -50px;
+        
         .text{
             text-align: center;
             color: #f18017;
 
             p{
                 &:first-child{
-                    font-size: 100px;
+                    font-size: 90px;
                     font-weight: bolder;
                     padding-bottom: 20px;
                 }
                 &:last-child{
-                    font-size: 18px;
+                    font-size: 16px;
                     font-weight: bolder;
                 }
             }
@@ -65,12 +68,14 @@ export default {
             display: block;
             font-weight: 500;
             margin-top: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
 
             img{
-                width: 30px;
+                width: 35px;
+                margin: 0 auto 5px;
+            }
+
+            p{
+                font-size: 12px;
             }
         }
     }

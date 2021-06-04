@@ -16,8 +16,9 @@ import PostsHeader from '@/components/header/PostsHeader.vue';
 import Footer from '@/components/footer/index.vue';
 import prism from 'prismjs';
 import 'prismjs/themes/prism.css';
-import '@/assets/css/github-markdown.css';
-// import 'github-markdown-css';
+
+import '@/assets/less/github-markdown.less';
+import '@/assets/less/markdown.less';
 
 
 export default {

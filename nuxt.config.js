@@ -17,12 +17,12 @@ export default {
       { name: 'renderer', content: 'webkit'}
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/lMC.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: './lMC.ico' }
     ]
   },
 
   watch: [
-    '~/blog/*'
+    '~/blog/*.md'
   ],
 
   generate: {
@@ -33,7 +33,6 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '~/assets/less/global.less',
-    '~/assets/less/markdown.less',
     '~/assets/less/routerAni.less'
   ],
 
@@ -44,13 +43,6 @@ export default {
   
   server: {
     port: 2000 // default: 3000
-  },
-
-
-  // loading: '~/components/loading/index.vue',
-  loading: {
-    color: '#000',
-    height: '5px'
   },
 
   // Auto import components: https://go.nuxtjs.dev/config-components

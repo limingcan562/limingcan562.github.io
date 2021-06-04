@@ -22,6 +22,7 @@ import Footer from '@/components/footer/index.vue';
 import getMdName from '@/plugins/getMdName';
 
 export default {
+  transition: 'fade',
   async asyncData({getEnglishMonth}) {
     // console.log(getEnglishMonth);
     const data = require.context('~/blog', true, /\.md$/);

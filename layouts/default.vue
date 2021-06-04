@@ -2,6 +2,9 @@
     <Nuxt />
 </template>
 
-<style>
 
-</style>
+<script>
+export default {
+    transition: 'fade',
+}
+</script>

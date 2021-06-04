@@ -46,27 +46,3 @@ li{
 // ::scrollbar-base-color:color{
 //     background: #000;
 // }
-
-
-@keyframes fade {
-    0%{
-        transform: translate3d(0, 0, 0);
-    }
-    100%{
-        transform: translate3d(50%, 0, 0);
-        opacity: 0;
-    }
-}
-
-
-
-// 页面切换动画
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity .5s ease-in-out, transform .5s ease-in-out;
-}
-.fade-enter,
-.fade-leave-to {
-    opacity: 0;
-    transform: translate3d(8%, 0, 0);
-}

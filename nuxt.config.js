@@ -26,13 +26,15 @@ export default {
   ],
 
   generate: {
-    subFolders: false
+    subFolders: false,
+    fallback: true
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '~/assets/less/global.less',
-    '~/assets/less/markdown.less'
+    '~/assets/less/markdown.less',
+    '~/assets/less/routerAni.less'
   ],
 
   plugins: [

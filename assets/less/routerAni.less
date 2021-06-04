@@ -1,0 +1,20 @@
+
+// 页面切换动画
+.slide-enter-active,
+.slide-leave-active {
+    transition: opacity .45s ease-in-out, transform .45s ease-in-out;
+}
+.slide-enter,
+.slide-leave-to {
+    opacity: 0;
+    transform: translate3d(8%, 0, 0);
+}
+
+
+.fadeIn-enter-active, 
+.fadeIn-leave-active {
+    transition: opacity .5s;
+}
+.fadeIn-enter, .fadeIn-leave-active {
+    opacity: 0;
+}

@@ -2,7 +2,7 @@
 <header>
     <div class="t">
         <h1>
-            <nuxt-link to="/">🍁Posts</nuxt-link>
+            <nuxt-link to="/"><img src="~/assets/img/leaves.png" width="30">Posts</nuxt-link>
         </h1>
         <nav>
             <nuxt-link to="/">主页</nuxt-link>
@@ -43,6 +43,12 @@ header{
 
             a{
                 color: #f54747;
+                display: flex;
+                align-items: center;
+
+                img{
+                    margin-right: 5px;
+                }
             }
         }
 

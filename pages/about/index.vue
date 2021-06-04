@@ -41,6 +41,7 @@ import Header from '@/components/header/index.vue';
 import Footer from '@/components/footer/index.vue';
 
 export default {
+    transition: 'slide',
     head() {
         return {
             title:'lMC`s Blog | about',

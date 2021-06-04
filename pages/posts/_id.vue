@@ -2,10 +2,10 @@
     <div class="posts_content">
         <PostsHeader />
         <main>
-            <div class="md_content markdown-body"
+            <article class="md_content markdown-body"
                 v-html="posts.html"
             >
-            </div>
+            </article>
         </main>
         <Footer />
     </div>
@@ -21,6 +21,7 @@ import '@/assets/css/github-markdown.css';
 
 
 export default {
+    transition: 'slide',
     components: {
         PostsHeader,
         Footer

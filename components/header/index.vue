@@ -2,7 +2,7 @@
 <header>
     <div class="t">
         <h1>
-            <nuxt-link to="/">🍁lMC`s Blog</nuxt-link>
+            <nuxt-link to="/"><img src="~/assets/img/leaves.png" width="30">lMC`s Blog</nuxt-link>
         </h1>
         <nav>
             <nuxt-link to="/">主页</nuxt-link>
@@ -54,11 +54,6 @@ export default {
 header{
     padding: 35px 0 0;
     
-
-    a{
-        color: #000;
-    }
-
     .t{
         display: flex;
         justify-content: space-between;
@@ -66,12 +61,22 @@ header{
 
         h1{
             font-size: 28px;
-            color: #666;
+            font-family: sans-serif;
+
+            a{
+                color: #555;
+                display: flex;
+                align-items: center;
+
+                img{
+                    margin-right: 5px;
+                }
+            }
         }
 
         nav{
             .about_btn{
-                margin-left: 12px;
+                margin-left: 8px;
             }
 
             a{

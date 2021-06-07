@@ -19,27 +19,25 @@
 <script>
 import Header from '@/components/header/index.vue';
 import Footer from '@/components/footer/index.vue';
-import getMdName from '@/plugins/getMdName';
 
 export default {
   transition: 'fadeIn',
-  async asyncData({getEnglishMonth}) {
-    // console.log(getEnglishMonth);
+  async asyncData({$getEnglishMonth, $getMdName}) {
     const data = require.context('~/blog', true, /\.md$/);
 
     // 首页预览数据
     let previewData = data.keys().map(src => {
       // console.log(src);
       // 获取文件名字
-      const filName = `/posts/${getMdName(src)}`;
+      const filName = `/posts/${$getMdName(src)}`;
       const {attributes: {createTime, title, des}} = data(src);
 
       const 
       year = createTime.split('-')[0],
-      month = getEnglishMonth(createTime.split('-')[1]),
+      month = $getEnglishMonth(createTime.split('-')[1]),
       day = createTime.split('-')[2],
       englishTime = `${month} ${day} ${year}`;
-
+      
       return {
         title,
         des,
@@ -107,20 +105,14 @@ export default {
       }
       .des{
         font-size: 14px;
-        // color: #fff;
-        // padding: 5px 8px;
-        // background: rgba(255, 55, 28, .7);
         color: #333;
         display: inline-block;
         margin-top: 8px;
       }
       .time{
-        // color: #be4848;
         font-family: Merriweather,Georgia,serif;
         padding-top: 5px;
         font-size: 12px;
-        // text-align: right;
-        // display: none;
       }
     }
   }

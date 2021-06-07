@@ -10,7 +10,7 @@
             </li>
         </ul>
     </nav>
-    <p class="des">written by 🍁lMC</p>
+    <p class="des">written by <img src="~/assets/img/leaves.png" width="15"> lMC</p>
 </footer>
 </template>
 
@@ -82,6 +82,13 @@ footer{
         font-size: 12px;
         transform: scale(.88);
         transform-origin: 0 center;
+        display: flex;
+        align-items: center;
+
+        img{
+            margin-left: 5px;
+            margin-right: 2px;
+        }
     }
 }
 </style>

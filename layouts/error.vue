@@ -1,17 +1,19 @@
 <template>
     <div class="error_content">
         <div class="not_found" v-if="error.statusCode === 404">
-            <div class="text">
+            <div class="text" v-if="error.statusCode === 404">
                 <p>404</p>
                 <p>你浏览的页面不存在</p>
+            </div>
+            <div v-else>
+                <p>500</p>
+                <p>服务器繁忙，请稍后重试</p>
             </div>
             <NuxtLink class="back_btn" to="/" title="走近我">
                 <img :class="{floatAni: load}" src="~/assets/img/leaves.png">
                 <p>走近我</p>
             </NuxtLink>
         </div>
-
-        <div class="busy_content" v-else></div>
     </div>
 </template>
 

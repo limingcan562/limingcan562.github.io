@@ -37,6 +37,8 @@ export default {
   ],
 
   plugins: [
+    '~/plugins/getEnglishMonth.js',
+    '~/plugins/getMdName.js'
   ],
   
   layoutTransition: 'slide',
@@ -50,6 +52,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    extractCSS: true,
     transpile: [
       'gsap',
       'prismjs'

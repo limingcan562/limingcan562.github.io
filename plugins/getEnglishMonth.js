@@ -1,5 +1,3 @@
-import Vue from 'vue';
-
 const abbr = {
     '1': 'Jan',
     '2': 'Feb',
@@ -16,13 +14,7 @@ const abbr = {
 };
 
 export default context => {
-    // console.log(context, 11);
-    context.getEnglishMonth = month => {
+    context.$getEnglishMonth = month => {
         return abbr[month];
     }
 }
-
-
-// Vue.prototype.getEnglishMonth = month => {
-//     return abbr[month];
-// }

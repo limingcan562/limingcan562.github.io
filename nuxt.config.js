@@ -37,9 +37,9 @@ export default {
   ],
 
   plugins: [
-    //其他无关文件忽略不计
-    {src: '~/plugins/getEnglishMonth.js'}
   ],
+  
+  layoutTransition: 'slide',
   
   server: {
     port: 2000 // default: 3000

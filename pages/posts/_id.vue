@@ -1,32 +1,16 @@
 <template>
-    <div class="posts_content">
-        <PostsHeader />
-        <main>
-            <article class="md_content markdown-body"
-                v-html="posts.html"
-            >
-            </article>
-        </main>
-        <Footer />
-    </div>
+    <main>
+        <article class="md_content markdown-body"
+            v-html="posts.html"
+        >
+        </article>
+    </main>
 </template>
 
 <script>
-import PostsHeader from '@/components/header/PostsHeader.vue';
-import Footer from '@/components/footer/index.vue';
-import prism from 'prismjs';
-import 'prismjs/themes/prism.css';
-
-import '@/assets/less/github-markdown.less';
-import '@/assets/less/markdown.less';
-
 
 export default {
-    transition: 'slide',
-    components: {
-        PostsHeader,
-        Footer
-    },
+    layout: 'posts',
 
     async asyncData({params}) {
         // console.log(params);
@@ -60,19 +44,10 @@ export default {
             ]
         }
     },
-
-    mounted() {
-        prism.highlightAll();
-    }
 }
 </script>
 
 <style lang="less" scoped>
-.posts_content{
-    padding: 0 20px;
-    max-width: 630px;
-    margin: 0 auto;
-}
 main{
     padding: 40px 0 40px;
 }

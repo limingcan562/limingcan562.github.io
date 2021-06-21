@@ -37,6 +37,9 @@ createTime: 2021-6-21
 我的开发目录结构：
 ![](../md/webpack-pack-path/pic_3.png)    
 
+打包以后的目录：
+![](../md/webpack-pack-path/pic_4.png)    
+
 这样做可以过滤掉开发目录前面的路径：  
 ````javascript
 context: path.resolve(__dirname, '../dev/assets')

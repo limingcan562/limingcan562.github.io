@@ -1,6 +1,8 @@
 <template>
     <main>
-        <article class="md_content markdown-body"
+        <article 
+            class="md_content markdown-body"
+            id="markdown-body"
             v-html="posts.html"
         >
         </article>
@@ -8,10 +10,9 @@
 </template>
 
 <script>
-
+import {mapMutations, mapState} from 'vuex';
 export default {
     layout: 'posts',
-
     async asyncData({params}) {
         // console.log(params);
         const allData = await require.context('~/blog', true, /\.md$/);
@@ -40,10 +41,57 @@ export default {
                     hid: 'description',
                     name: 'description',
                     content: this.posts.title
-                }
+                },
+                {
+                    hid: 'keywornd',
+                    name: 'keywornd',
+                    content: this.posts.des
+                },
             ]
         }
     },
+
+
+    computed: {
+        ...mapState([
+            'canScroll'
+        ])
+    },
+
+    methods: {
+        ...mapMutations([
+            'resetValueEvt'
+        ]),
+        isMobile() {
+            let flag = false;
+			if((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+                flag = true;
+				
+			}else {
+                flag = false;
+			}
+            return flag;
+		},
+    },
+
+
+    mounted() {
+        if (!this.isMobile()) return;
+
+        document.querySelector('#markdown-body').addEventListener('mousedown', evt => {
+            // console.log(evt);
+            const {target: {src}} = evt;
+            // console.log(src);
+
+            // 图片对象
+            if (src) {
+                this.resetValueEvt({key: 'previewPicSrc', value: src});
+                this.resetValueEvt({key: 'showPreviewPop', value: 1});
+                this.resetValueEvt({key: 'canScroll', value: 0});
+                
+            }
+        });
+    }
 }
 </script>
 

@@ -1,4 +1,5 @@
 const path = require('path');
+const tool = require('./tool/index');
 
 export default {
   target: 'static',
@@ -44,7 +45,8 @@ export default {
   layoutTransition: 'slide',
   
   server: {
-    port: 2000 // default: 3000
+    port: tool.devPort, // default: 3000
+    host: tool.getIpAddress()
   },
 
   // Auto import components: https://go.nuxtjs.dev/config-components

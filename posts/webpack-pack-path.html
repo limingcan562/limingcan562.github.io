@@ -1,0 +1,44 @@
+<!doctype html>
+<html data-n-head-ssr lang="en" data-n-head="%7B%22lang%22:%7B%22ssr%22:%22en%22%7D%7D">
+  <head>
+    <title>lMC`s Blog | posts</title><meta data-n-head="ssr" charset="utf-8"><meta data-n-head="ssr" name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><meta data-n-head="ssr" name="keywords" content="李明灿的博客, lMC`s Blog"><meta data-n-head="ssr" data-hid="description" name="description" content="李明灿的博客，用来记录李明灿平时项目的一些总结，复盘"><meta data-n-head="ssr" name="author" content="804666207@qq.com"><meta data-n-head="ssr" name="renderer" content="webkit"><meta data-n-head="ssr" data-hid="keywornd" name="keywornd" content="undefined"><link data-n-head="ssr" rel="icon" type="image/x-icon" href="./lMC.ico"><link rel="preload" href="/_nuxt/4d015c4.js" as="script"><link rel="preload" href="/_nuxt/f10b9bd.js" as="script"><link rel="preload" href="/_nuxt/css/2ec053a.css" as="style"><link rel="preload" href="/_nuxt/94cf054.js" as="script"><link rel="preload" href="/_nuxt/css/e150ebb.css" as="style"><link rel="preload" href="/_nuxt/ae5fa57.js" as="script"><link rel="preload" href="/_nuxt/css/6b223da.css" as="style"><link rel="preload" href="/_nuxt/e47a817.js" as="script"><link rel="stylesheet" href="/_nuxt/css/2ec053a.css"><link rel="stylesheet" href="/_nuxt/css/e150ebb.css"><link rel="stylesheet" href="/_nuxt/css/6b223da.css"><link rel="preload" href="/_nuxt/static/1624273012/posts/webpack-pack-path/state.js" as="script"><link rel="preload" href="/_nuxt/static/1624273012/posts/webpack-pack-path/payload.js" as="script"><link rel="preload" href="/_nuxt/static/1624273012/manifest.js" as="script">
+  </head>
+  <body>
+    <div data-server-rendered="true" id="__nuxt"><!----><div id="__layout"><div class="posts_content" data-v-66e15f41><header data-v-4a6bfdeb data-v-66e15f41><div class="t" data-v-4a6bfdeb><h1 data-v-4a6bfdeb><a href="/" class="nuxt-link-active" data-v-4a6bfdeb><img src="/_nuxt/img/leaves.6f4df34.png" width="30" data-v-4a6bfdeb>Posts</a></h1> <nav data-v-4a6bfdeb><a href="/" class="nuxt-link-active" data-v-4a6bfdeb>主页</a> <a href="/about" class="about_btn" data-v-4a6bfdeb>关于</a></nav></div></header> <main data-v-79618e5e data-v-66e15f41><article id="markdown-body" class="md_content markdown-body" data-v-79618e5e><h2>场景</h2>
+<p>有时我们在开发模式时，会在<code>img</code>文件里建很多的不同的文件夹，方便我们开发过程中更好的管理，就像这样：<br>
+<img src="../md/webpack-pack-path/pic_1.png" alt="">
+我们把一些场景的资源用不同的文件存放，这样在我们开发的过程中，可以更快更有效地管理我们场景的资源，尤其是在做游戏项目。<br>
+当我们项目开发完了，打包时，<code>webpack</code>内部会将我们应用的图片资源，全部打包到一文件夹中，就像下面这样：
+<img src="../md/webpack-pack-path/pic_2.png" alt="">
+但是如果遇到项目上线了，只是紧急替换图片，不需要改逻辑，又或者有些奇葩客户，说打包出来图片文件不要混在一起，要分开，这样方便他们自己修改别的版本（我就遇到过），这就很尴尬了，光是找替换的文件都要找半天，所以这时如果我们在打包的时候，保留了原本<code>img</code>里面的文件夹，那就很舒服</p>
+<h2>实现</h2>
+<p><code>webpack</code>🐂🍺的地方不需要再说啦，现在说下怎么实现在打包的时候，保留<code>img</code>文件夹里面的文件夹，其实也不是很难<br>
+<code>webpack</code>配置：</p>
+<pre><code class="language-javascript">// webpack.config.js
+{
+    test: /\.(png|jpg|jpeg|gif)$/,
+    use: [
+        {
+            loader: 'url-loader',
+            options: {
+                //利用[path]路径获取文件夹名称并设置文件名
+                name: '[path]/[name].[ext]',
+                limit: 1, 
+                //过滤掉[path]的相对路径
+                context: path.resolve(__dirname, '../dev/assets'),
+            }
+        }
+    ]
+},
+</code></pre>
+<p>我的开发目录结构：
+<img src="../md/webpack-pack-path/pic_3.png" alt=""></p>
+<p>这样做可以过滤掉开发目录前面的路径：</p>
+<pre><code class="language-javascript">context: path.resolve(__dirname, '../dev/assets')
+</code></pre>
+<p>如果为了防止缓存，还可以在打包出来的图片文件加上<code>hash</code>：</p>
+<pre><code class="language-javascript">name: '[path]/[name]-[hash:8].[ext]',
+</code></pre>
+</article></main> <footer data-v-520cc4ae data-v-66e15f41><nav data-v-520cc4ae><ul data-v-520cc4ae><li data-v-520cc4ae><a href="/" class="nuxt-link-active" data-v-520cc4ae>home</a></li><li data-v-520cc4ae><a href="/about" data-v-520cc4ae>about</a></li></ul></nav> <p class="des" data-v-520cc4ae>written by <img src="/_nuxt/img/leaves.6f4df34.png" width="15" data-v-520cc4ae> lMC</p></footer></div></div></div><script defer src="/_nuxt/static/1624273012/posts/webpack-pack-path/state.js"></script><script src="/_nuxt/4d015c4.js" defer></script><script src="/_nuxt/e47a817.js" defer></script><script src="/_nuxt/f10b9bd.js" defer></script><script src="/_nuxt/94cf054.js" defer></script><script src="/_nuxt/ae5fa57.js" defer></script>
+  </body>
+</html>

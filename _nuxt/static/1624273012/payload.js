@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/", {data:[{previewData:[{title:"Webpack 打包时，如何保留img文件夹里原有的文件夹",des:"保留img文件夹里面原始文件，更好管理",createTime:"2021-6-21",englishTime:"Jun 21 2021",path:"\u002Fposts\u002Fwebpack-pack-path"},{title:"如何使用nuxtJs在github.io搭建自己博客",des:"让你DIY专属于自己的博客",createTime:"2021-6-2",englishTime:"Jun 2 2021",path:"\u002Fposts\u002Fcreate-blog-github"}]}],fetch:{},mutations:[]});

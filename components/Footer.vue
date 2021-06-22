@@ -10,7 +10,7 @@
             </li>
         </ul>
     </nav>
-    <p class="des">written by <img src="~/assets/img/leaves.png" width="15"> lMC</p>
+    <p class="des">written by <Icon :width="15" /> lMC</p>
 </footer>
 </template>
 

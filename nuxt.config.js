@@ -39,7 +39,8 @@ export default {
 
   plugins: [
     '~/plugins/getEnglishMonth.js',
-    '~/plugins/getMdName.js'
+    '~/plugins/getMdName.js',
+    {src: '~/plugins/hammer.js', ssr: false},
   ],
   
   layoutTransition: 'slide',

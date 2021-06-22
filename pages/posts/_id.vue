@@ -1,5 +1,14 @@
 <template>
     <main>
+        <div class="preview_tip_content">
+            <div class="line"></div>
+            <div class="text_contnet">
+                <p class="tip">点击图片可以预览喔</p>
+            </div>
+            <div class="line line2"></div>
+            <p class="btn">知道了</p>
+            
+        </div>
         <article 
             class="md_content markdown-body"
             id="markdown-body"
@@ -98,6 +107,45 @@ export default {
 <style lang="less" scoped>
 main{
     padding: 40px 0 40px;
+
+    .preview_tip_content{
+        position: fixed;
+        right: 20px;
+        top: 0;
+        font-size: 12px;
+        text-align: center;
+        // padding: 0 20px 20px;
+        // background: #fff;
+        color: #fff;
+
+        .line{
+            width: 1px;
+            height: 40px;
+            background: #f18017;
+            margin: 0 auto;
+            box-shadow: 2px 2px 10px #ccc;
+        }
+
+        .line2{
+            height: 10px;
+        }
+
+        .text_contnet{
+            background: #f18017;
+            padding: 10px;
+            box-shadow: 2px 2px 10px #ccc;
+        }
+
+        .btn{
+            padding-top: 5px;
+            background: #f18017;
+            padding: 5px;
+            box-shadow: 2px 2px 10px #ccc;
+            width: 50%;
+            margin: 0 auto;
+        }
+    }
 }
+
 </style>
 

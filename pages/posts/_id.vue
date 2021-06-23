@@ -136,6 +136,7 @@ main{
         font-size: 12px;
         text-align: center;
         color: #fff;
+        cursor: pointer;
 
         &.init{
             opacity: 0;

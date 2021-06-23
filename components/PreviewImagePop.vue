@@ -12,6 +12,7 @@
         <div 
             :class="['img_content', {show: imgLoad}]" 
             ref="ctrArea"
+            @mousewheel="onMouseWheel"
         >
             <div class="close_btn_content">
                 <div class="close_btn"></div>
@@ -32,6 +33,7 @@ export default {
         return {
             endX: 0,
             endY: 0,
+            wheelScale: 1,
             currentScale: 1,
             initialScale: 1,
             imgLoad: 0,
@@ -57,9 +59,11 @@ export default {
         ]),
         afterLeave() {
             this.resetValueEvt({key: 'canScroll', value: 1});
-            this.imgLoad = 0;
             this.hammerData = {...this.hammerData, ...{moveX: 0, moveY: 0, scale: 1}};
             [this.endX, this.endY, this.endScale] = [0, 0, 1];
+            this.imgLoad = 0;
+            this.currentScale = 1;
+            this.initialScale = 1;
         },
         afterEnter() {
             this.$refs.ctred_img.onload = () => setTimeout(() =>this.imgLoad = 1, 500);
@@ -101,10 +105,35 @@ export default {
                     case 'tap':
                         const {target: {id}} = ev;
                         // console.log(target.id);
-                        !id && this.resetValueEvt({key: 'showPreviewPop', value: 0});
+                        // !id && this.resetValueEvt({key: 'showPreviewPop', value: 0});
+                        this.resetValueEvt({key: 'showPreviewPop', value: 0});
                         break;
                 }
             });
+        },
+
+        onMouseWheel(ev) {
+            let scal = 1;
+            var scaleRo = 0.1;
+            const {x, y} = ev;
+
+            let dir = ev.wheelDelta < 0 ? 1 : 0;
+
+            if (dir === 1) {
+                // console.log(`往下滚动放大`);
+                scal += scaleRo;
+                this.currentScale = this.initialScale * scal;
+            } else {
+                scal -= scaleRo;
+                if (this.currentScale <= scaleRo) return;
+            }
+
+            this.currentScale = this.initialScale * scal;
+            this.hammerData = {...this.hammerData, ...{scale: this.currentScale}};
+            this.initialScale = this.currentScale;
+
+            // console.log(x, y);
+            // this.$refs.ctred_img.style.transformOrigin = `${x}px ${y}px`;
         }
     },
 
@@ -139,7 +168,10 @@ export default {
     
 
     .loading_content{
+        max-width: 630px;
         .base;
+        left: 50%;
+        transform: translateX(-50%);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -150,7 +182,10 @@ export default {
     }
 
     .img_content{
+        max-width: 630px;
         .base;
+        left: 50%;
+        transform: translateX(-50%);
         padding: 0 20px;
         box-sizing: border-box;
         visibility: hidden;
@@ -170,6 +205,7 @@ export default {
             margin-top: 5%;
             position: relative;
             z-index: 2;
+            cursor: pointer;
 
             .close_btn{
                 width: 40px;
@@ -206,6 +242,7 @@ export default {
 
             img{
                 width: 100%;
+                pointer-events: none;
             }
         }
     }

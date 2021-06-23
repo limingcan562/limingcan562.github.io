@@ -128,12 +128,12 @@ export default {
                 if (this.currentScale <= scaleRo) return;
             }
 
+            // this.$refs.ctred_img.style.transformOrigin = `${x}px ${y}px`;
             this.currentScale = this.initialScale * scal;
             this.hammerData = {...this.hammerData, ...{scale: this.currentScale}};
             this.initialScale = this.currentScale;
 
             // console.log(x, y);
-            // this.$refs.ctred_img.style.transformOrigin = `${x}px ${y}px`;
         }
     },
 

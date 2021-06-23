@@ -2,7 +2,7 @@
 <header>
     <div class="t">
         <h1>
-            <nuxt-link to="/"><Icon :width="30" /> lMC`s Blog</nuxt-link>
+            <nuxt-link to="/"><Icon :width="30" /> {{headerText ? headerText : 'lMC`s Blog'}}</nuxt-link>
         </h1>
         <nav>
             <nuxt-link to="/">主页</nuxt-link>
@@ -20,6 +20,9 @@ gsap.registerPlugin(TextPlugin);
 
 
 export default {
+    props: [
+        'headerText'
+    ],
     data() {
         return {
             startDesText: 'Success',
@@ -61,10 +64,10 @@ header{
 
         h1{
             font-size: 28px;
-            font-family: sans-serif;
 
             a{
-                color: #555;
+                // color: #555;
+                color: #f54747;
                 display: flex;
                 align-items: center;
 

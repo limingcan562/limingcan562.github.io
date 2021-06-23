@@ -1,6 +1,6 @@
 <template>
     <div class="about_content">
-        <Header />
+        <Header :headerText="'About me'" />
         <main>
             <section class="about">
                 <h3>{{aboutData.title}}</h3>

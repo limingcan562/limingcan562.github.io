@@ -109,7 +109,7 @@ export default {
 
 
     mounted() {
-        if (!this.isMobileEvt()) return;
+        // if (!this.isMobileEvt()) return;
 
         this.bounceAni = 1;
         document.querySelector('#markdown-body').addEventListener('mousedown', evt => {

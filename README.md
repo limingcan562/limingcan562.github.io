@@ -19,6 +19,9 @@ $ npm run dev
 
 # generate static project
 $ npm run generate
+
+# preview 
+$ npm run preview
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).

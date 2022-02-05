@@ -88,7 +88,7 @@ header{
     }
 
     .header_des{
-        padding: 5px 8px;
+        padding: 5px 8px 0;
         margin-top: 8px;
         font-size: 15px;
         // color: rgb(255, 73, 73, .7);
@@ -96,6 +96,8 @@ header{
         display: inline-block;
         font-family: Rockwell, sans-serif;
         letter-spacing: 1px;
+        // min-height: 20px;
+        height: 35px;
     }
 }
 </style>

@@ -1,0 +1,260 @@
+<!doctype html>
+<html data-n-head-ssr lang="en" data-n-head="%7B%22lang%22:%7B%22ssr%22:%22en%22%7D%7D">
+  <head>
+    <title>lMC`s Blog | posts</title><meta data-n-head="ssr" charset="utf-8"><meta data-n-head="ssr" name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><meta data-n-head="ssr" name="keywords" content="李明灿的博客, lMC`s Blog"><meta data-n-head="ssr" data-hid="description" name="description" content="李明灿的博客，用来记录李明灿平时项目的一些总结，复盘"><meta data-n-head="ssr" name="author" content="804666207@qq.com"><meta data-n-head="ssr" name="renderer" content="webkit"><meta data-n-head="ssr" data-hid="keywornd" name="keywornd" content="undefined"><link data-n-head="ssr" rel="icon" type="image/x-icon" href="./lMC.ico"><link rel="preload" href="/_nuxt/54b523b.js" as="script"><link rel="preload" href="/_nuxt/0a345ca.js" as="script"><link rel="preload" href="/_nuxt/css/2ec053a.css" as="style"><link rel="preload" href="/_nuxt/ab7f0fb.js" as="script"><link rel="preload" href="/_nuxt/css/6fb624f.css" as="style"><link rel="preload" href="/_nuxt/c408fa5.js" as="script"><link rel="preload" href="/_nuxt/css/6b223da.css" as="style"><link rel="preload" href="/_nuxt/0c653ed.js" as="script"><link rel="stylesheet" href="/_nuxt/css/2ec053a.css"><link rel="stylesheet" href="/_nuxt/css/6fb624f.css"><link rel="stylesheet" href="/_nuxt/css/6b223da.css"><link rel="preload" href="/_nuxt/static/1644082532/posts/build-webpack5-feeling/state.js" as="script"><link rel="preload" href="/_nuxt/static/1644082532/posts/build-webpack5-feeling/payload.js" as="script"><link rel="preload" href="/_nuxt/static/1644082532/manifest.js" as="script">
+  </head>
+  <body>
+    <div data-server-rendered="true" id="__nuxt"><!----><div id="__layout"><div class="posts_content" data-v-66e15f41><header data-v-4a6bfdeb data-v-66e15f41><div class="t" data-v-4a6bfdeb><h1 data-v-4a6bfdeb><a href="/" class="nuxt-link-active" data-v-4a6bfdeb><img src="/_nuxt/img/leaves.6f4df34.png" width="30" data-v-4a6bfdeb>Posts</a></h1> <nav data-v-4a6bfdeb><a href="/" class="nuxt-link-active" data-v-4a6bfdeb>主页</a> <a href="/about" class="about_btn" data-v-4a6bfdeb>关于</a></nav></div></header> <main data-v-79618e5e data-v-66e15f41><article id="markdown-body" class="md_content markdown-body" data-v-79618e5e><h2>前言</h2>
+<p>在从<code>Webpack4</code>到<code>Webpack5</code>的升级过程中，即使以前已经搭建过<code>Webpack4</code>，但是搭建<code>Webpack5</code>的过程中还是有点痛苦。因为<code>Webpack</code>提供的功能方法实在是太多了，很庞大的一个体系，所以搭建完感触还是很多的，<strong>发现不能一味的从网上找，还是得看文档</strong>。<br>
+看完文档才发现原来<code>Webpack5</code>里面已经精简了很多插件了，不需要额外安装其他插件，很多以前概念比较模糊的东西，看了文档还是比较清晰的。大家有兴趣的话可以<code>Fork</code>我的<a href="https://github.com/limingcan562/webpack5-boilerplate"><code>webpack5-boilerplate</code></a>学习交流，建议大家多敲敲多试试，过程虽然有点痛苦，但是一定会有收获的。<br>
+本文讲解，需要一定<code>Webpack4</code>基础，还没有搭建过<code>Webpack4</code>的同学，可以看看这篇<a href="https://itxiaohao.github.io/passages/webpack4-learn-introduction/"><code>Webpack4搭建</code></a><br>
+下面的讲解，都基于<a href="https://github.com/limingcan562/webpack5-boilerplate"><code>webpack5-boilerplate</code></a>这个项目。</p>
+<h2><code>Webpack</code>大体框架</h2>
+<p>首先我们对<code>Webpack</code>得有一个大体的框架认识</p>
+<pre><code class="language-javascript">// webpack.config.js
+module.exports = {
+    // 入口
+    entry: {},
+
+    // 打包输出
+    output: {},
+
+    // 配置模块如何解析
+    resolve: {},
+
+    // 配置各种loader
+    moudle: {},
+
+    // 配置插件
+    plugins: [],
+
+    // 优化（可以进行代码分割）
+    optimization: {},
+
+    // webpack-dev-server 开发时的配置，一般用于development模式
+    devServer: {}
+};
+</code></pre>
+<h2>所需要的<code>Loader</code></h2>
+<h3><code>CSS</code>类的<code>Loader</code></h3>
+<ul>
+<li><code>css-loader</code></li>
+<li><code>css-minimizer-webpack-plugin</code></li>
+<li><code>mini-css-extract-plugin</code></li>
+<li><code>less-loader</code></li>
+<li><code>less</code></li>
+<li><code>style-loader</code></li>
+<li>...</li>
+</ul>
+<p>目前我暂时用到的就这些</p>
+<h3>解析<code>ES6</code>类的<code>Loader</code></h3>
+<ul>
+<li><code>@babel/core</code></li>
+<li><code>@babel/plugin-transform-runtime</code></li>
+<li><code>@babel/preset-env</code></li>
+<li><code>babel-loader</code></li>
+<li><code>core-js</code></li>
+</ul>
+<h3>解析<code>Html</code>类的<code>Loader</code></h3>
+<ul>
+<li><code>html-webpack-plugin</code></li>
+</ul>
+<h3><code>Webpack5</code>不需要用到的依赖</h3>
+<ul>
+<li><s><code>url-loader</code></s></li>
+<li><s><code>file-loader</code></s></li>
+<li><s><code>clean-webpack-plugin</code></s></li>
+<li><s><code>@babel/polyfill</code></s></li>
+<li><s><code>@babel/runtime</code></s></li>
+<li><s><code>optimize-css-assets-webpack-plugin</code></s></li>
+</ul>
+<h3>最后依赖列表预览</h3>
+<pre><code class="language-json">"devDependencies": {
+    "@babel/core": "^7.16.12",
+    "@babel/plugin-transform-runtime": "^7.16.10",
+    "@babel/preset-env": "^7.16.11",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.5.1",
+    "css-minimizer-webpack-plugin": "^3.4.1",
+    "filemanager-webpack-plugin": "^6.1.7",
+    "html-webpack-plugin": "^5.5.0",
+    "less": "^4.1.2",
+    "less-loader": "^10.2.0",
+    "mini-css-extract-plugin": "^2.5.3",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.67.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.3",
+    "webpack-merge": "^5.8.0"
+},
+"dependencies": {
+    "core-js": "^3.20.3"
+},
+</code></pre>
+<blockquote>
+<p><a href="https://github.com/limingcan562/webpack5-boilerplate"><code>webpack5-boilerplate</code></a>这个脚手架，核心的就这些依赖，另外需要的依赖再自己装就好了。是不是觉得依赖少了很多，我是顿时觉得很舒服。接下来讲一下这些不需要用到的插件，如何在<code>Webpack5</code>里面用别的方式替代。</p>
+</blockquote>
+<h2>使用<code>Asset Module</code>模块，来管理资源</h2>
+<blockquote>
+<p>官方解释：资源模块(<code>asset module</code>)是一种模块类型，它允许使用资源文件（字体，图标等）而无需配置额外 loader。</p>
+</blockquote>
+<p>以编译图片为例，所以如果我们要编译图片：</p>
+<pre><code class="language-javascript">const 
+maxSize = 10 * 1024,
+outImageFileName = 'img/',
+proResFileName = 'assets/';
+
+/**
+ * @maxSize 如果图片小于10Kb，会被转为base64
+ * @outImageFileName 要导出到哪个文件夹，如果写在filename配置里面，则会导出到这个文件夹上
+ * @proResFileName outputPath指的也是把该资源存放到proResFileName文件夹下
+ */
+module: {
+    rules: [
+        {
+            test: /\.(png|svg|jpg|jpeg|gif)$/i,
+            type: 'asset',
+            // 设置图片导出大小，如果小于预设的值，则会被转化成base64
+            parser: {
+                dataUrlCondition: {
+                    maxSize
+                }
+            },
+
+            // 设置导出的路径为 img
+            generator: {
+                filename: `${outImageFileName}[name]-[hash:2][ext][query]`,
+                outputPath: proResFileName
+            }
+        },
+    ]
+}
+</code></pre>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://webpack.docschina.org/guides/asset-modules/"><code>Webpack</code>资源模块</a></li>
+<li><a href="https://webpack.docschina.org/configuration/module/">模块</a></li>
+</ul>
+<h2>使用<code>output</code>里面配置，在生成文件之前清空<code>output</code>目录的内容</h2>
+<p>这样我们就可以不需要安装<code>clean-webpack-plugin</code>这个插件了</p>
+<pre><code class="language-javascript">output: {
+    clean: true
+};
+</code></pre>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://webpack.docschina.org/configuration/output/#outputclean"><code>output.clean</code></a></li>
+</ul>
+<h2>使用<code>mini-css-extract-plugin</code>插件来压缩<code>css</code>代码</h2>
+<pre><code class="language-javascript">// Webpack5压缩配置
+optimization: {
+    minimizer: [
+        // 压缩css
+        new CssMinimizerPlugin(),
+
+        // '...' 来访问默认值。（不加的话，js不会压缩）
+        '...'
+    ],
+},
+</code></pre>
+<pre><code class="language-javascript">// Webpack4压缩配置
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+plugins: [
+    // 压缩css
+    new OptimizeCssAssetsPlugin({
+        assetNameRegExp: /\.css$/g,
+        cssProcessor: require('cssnano'), //用于优化\最小化 CSS 的 CSS 处理器，默认为 cssnano
+        cssProcessorOptions: { safe: true, discardComments: { removeAll: true } }, //传递给 cssProcessor 的选项，默认为{}
+        canPrint: true //布尔值，指示插件是否可以将消息打印到控制台，默认为 true
+    }),
+]
+</code></pre>
+<p><code>Webpack5</code>压缩<code>css</code>的配置对比起<code>Webpack4</code>的更加简单。</p>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://webpack.docschina.org/plugins/css-minimizer-webpack-plugin/"><code>CssMinimizerWebpackPlugin</code></a></li>
+</ul>
+<h2><code>Babel</code>依赖配置</h2>
+<ul>
+<li><code>@babel/polyfill</code>在<code>Babel 7.4.0</code>就被弃用了。所以不用在安装<code>@babel/polyfill</code>这个插件了</li>
+<li><code>Babel</code>是一个个人觉得蛮复杂的体系，大家可以好好阅读下面这几篇文章，读多几遍好好理解一下</li>
+</ul>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://babeljs.io/docs/en/"><code>Babel</code></a></li>
+<li><a href="https://itxiaohao.github.io/passages/webpack4-Babel7/"><code>Webpack4</code>搭建</a></li>
+<li><a href="https://blog.csdn.net/qq_15601471/article/details/99690530">babel在<code>webpack</code>中使用和配置</a></li>
+</ul>
+<h2>关于<code>devServer</code>配置的理解</h2>
+<p>我想大家最懵圈的应该就是<code>devServer.static</code>（<code>Webpack5</code>是<code>static</code>，<code>Webpack4</code>是<code>contentBase</code>）这个配置了吧。是不是一直觉得，如果把里面的路径配置指向了我们打包出来的文件夹名字（<code>dist</code>），然后开启了<code>webpack-dev-server</code>服务器，就是访问的我们打包的那个资源（<code>dist</code>），其实并不是。这里大家可以自己建一个最简单的<code>demo</code>，然后配置改成下面这样：</p>
+<pre><code class="language-javascript">output: {
+    path: path.resolve(__dirname, `build`),
+},
+devServer: {
+    static: {
+        directory: path.resolve(__dirname, `outDir`),
+    },
+}
+</code></pre>
+<p>此时打包出来的文件夹是<code>build</code>，但是我们开启服务器访问的时候，访问是<code>outDir</code>文件夹，结果页面显示的还是我们的开发的<code>index.html</code>的内容，这就说明<code>devServer.static</code>的配置，根本就不是控制开启了<code>webpack-dev-server</code>服务器后访问的文件目录。这是经过本人测试，分析后的个人理解。</p>
+<blockquote>
+<p><code>devServer.static</code>，实际上指的是：<strong>一个存放，不经过<code>Webpack</code>编译的静态资源目录，他是一个目录</strong>。它的功能就很像是<code>vue-cli</code>里面的<code>public</code>文件夹，我们开发的时候，可以通过<code>./</code>或者<code>../</code>访问到那个资源（具体看目录关系）。</p>
+</blockquote>
+<h3>怎么访问到<code>devServer.static.directory</code>里面的文件</h3>
+<p>首先，我们先清楚这几点：</p>
+<ol>
+<li>开启<code>webpack-dev-server</code>服务器时，以<a href="https://github.com/limingcan562/webpack5-boilerplate"><code>webpack5-boilerplate</code></a>为例，我们的代码会根据我们的配置，在内存中生成一个打包文件，保存在内存中的打包文件目录结构：<pre><code>(http://localhost:8080/)
+├── js
+├── img
+├── font
+├── media
+├── favicon.ico
+├── index.html
+└── share.html
+</code></pre>
+</li>
+<li>开启<code>webpack-dev-server</code>服务器时，<code>devServer.static.directory</code>里面的文件会直接被映射到根目录下</li>
+<li><code>devServer.static.directory</code>，默认指向的是<code>public</code>文件夹。</li>
+</ol>
+<p>OK，我们在根目录下新建一个<code>public</code>的文件夹，里面放一个<code>test.txt</code>文件。开启<code>webpack-dev-server</code>，打开<code>http://localhost:8080/test.txt</code>，我们就可以访问到这个不经打包的静态资源了。此时保存在内存中的文件目录结构就变成了：</p>
+<pre><code>(http://localhost:8080/)
+├── js
+├── img
+├── font
+├── media
+├── favicon.ico
+├── test.txt （直接被映射到根目录下）
+├── index.html
+└── share.html
+</code></pre>
+<p>所以想要访问<code>devServer.static.directory</code>的内容就是：<code>http://localhost:8080/（文件名字）</code>。</p>
+<blockquote>
+<p>注意：
+如果在<code>public</code>里面新建一个<code>index.html</code>，访问<code>http://localhost:8080/index.html</code>或者<code>http://localhost:8080/</code>时，内容是我们的开发的<code>index.html</code>模板，这是因为我们的配置把编译后的<code>index.html</code>输出在<code>dist</code>文件夹根目录了，此时覆盖掉了<code>public/index.html</code>(可以在插件<code>HtmlWebpackPlugin</code>，把输的<code>filename</code>，设置为<code>filename: index2.html</code>，在<code>public</code>下新建一个<code>index.html</code>，此时访问<code>http://localhost:8080/</code>就是<code>public</code>里面的<code>index.html</code>)<br>
+所以我们在<code>public</code>文件夹里面，要避免与被编译的文件同名，否则会被覆盖掉。</p>
+</blockquote>
+<h2>关于<code>devServer.devMiddleware.publicPath</code>配置说明</h2>
+<p><code>devServer.devMiddleware.publicPath</code>对应的是<code>Webpack4</code>里面的<code>devServer.publicPath</code>，以下简称<code>publicPath</code>。<br>
+在没有配置<code>publicPath</code>的时候，我们开启<code>webpack-dev-server</code>，访问<code>http://localhost:8080/</code>得到的是覆盖掉<code>public/index.html</code>的编译后的模板<code>index.html</code>。因为<code>publicPath</code>默认值是：<code>''</code>指向根目录，所以我们访问<code>http://localhost:8080/</code>就是根目录，不用在后面加路径。<br>
+但是如果我们想类似以下访问我们的开发页面：<code>http://localhost:8080/test/</code>，我们只要将配置设置成：</p>
+<pre><code class="language-javascript">output: {
+    publicPath: '/test/',
+},
+devServer: {
+    /**
+     * 表示打包生成的静态文件所在的位置，意思是url访问的路径
+     * 改变dist访问的路径，outpath需要跟他一致，启动访问的url为http://localhost:8080/test/index.html
+     */
+    devMiddleware: {
+        publicPath: '/test/',
+    },
+}
+</code></pre>
+<p>此时我们访问的开发页面的路径就是：<code>http://localhost:8080/test/</code></p>
+<blockquote>
+<p>注意：<code>output.publicPath</code>与<code>devServer.devMiddleware.publicPath</code>要始终保持一致，不然会有问题</p>
+</blockquote>
+</article></main> <footer data-v-520cc4ae data-v-66e15f41><nav data-v-520cc4ae><ul data-v-520cc4ae><li data-v-520cc4ae><a href="/" class="nuxt-link-active" data-v-520cc4ae>home</a></li><li data-v-520cc4ae><a href="/about" data-v-520cc4ae>about</a></li></ul></nav> <p class="des" data-v-520cc4ae>written by <img src="/_nuxt/img/leaves.6f4df34.png" width="15" data-v-520cc4ae> lMC</p></footer></div></div></div><script defer src="/_nuxt/static/1644082532/posts/build-webpack5-feeling/state.js"></script><script src="/_nuxt/54b523b.js" defer></script><script src="/_nuxt/0c653ed.js" defer></script><script src="/_nuxt/0a345ca.js" defer></script><script src="/_nuxt/ab7f0fb.js" defer></script><script src="/_nuxt/c408fa5.js" defer></script>
+  </body>
+</html>

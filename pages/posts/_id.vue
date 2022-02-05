@@ -1,5 +1,18 @@
 <template>
     <main>
+        <div 
+            :class="['preview_tip_content', {init: init}, {bounceAni: bounceAni && !bounceOut}, {bounceOut: bounceOut}]" 
+            v-if="!viewClickTip"
+            @mousedown="closeEvt"
+        >
+            <div class="line"></div>
+            <div class="text_contnet">
+                <p class="tip">点击图片可以预览喔</p>
+            </div>
+            <div class="line line2"></div>
+            <p class="btn">知道了</p>
+            
+        </div>
         <article 
             class="md_content markdown-body"
             id="markdown-body"
@@ -43,18 +56,31 @@ export default {
                     content: this.posts.title
                 },
                 {
-                    hid: 'keywornd',
-                    name: 'keywornd',
+                    hid: 'keywords',
+                    name: 'keywords',
                     content: this.posts.des
                 },
             ]
         }
     },
 
+    data() {
+        return {
+            init: 1,
+            bounceAni: 0,
+            bounceOut: 0,
+            isMobile: 0,
+        };
+    },
+
+    created() {
+        if (process.client) this.isMobile = this.isMobileEvt();
+    },
 
     computed: {
         ...mapState([
-            'canScroll'
+            'canScroll',
+            'viewClickTip'
         ])
     },
 
@@ -62,7 +88,7 @@ export default {
         ...mapMutations([
             'resetValueEvt'
         ]),
-        isMobile() {
+        isMobileEvt() {
             let flag = false;
 			if((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
                 flag = true;
@@ -72,23 +98,27 @@ export default {
 			}
             return flag;
 		},
+        closeEvt() {
+            this.init = 0;
+            this.bounceOut = 1;
+            setTimeout(() => {
+                this.resetValueEvt({key: 'viewClickTip', value: 1});
+            }, 1000);
+        }
     },
 
 
     mounted() {
-        if (!this.isMobile()) return;
+        // if (!this.isMobileEvt()) return;
 
+        this.bounceAni = 1;
         document.querySelector('#markdown-body').addEventListener('mousedown', evt => {
-            // console.log(evt);
             const {target: {src}} = evt;
-            // console.log(src);
-
             // 图片对象
             if (src) {
                 this.resetValueEvt({key: 'previewPicSrc', value: src});
                 this.resetValueEvt({key: 'showPreviewPop', value: 1});
                 this.resetValueEvt({key: 'canScroll', value: 0});
-                
             }
         });
     }
@@ -98,6 +128,115 @@ export default {
 <style lang="less" scoped>
 main{
     padding: 40px 0 40px;
+
+    .preview_tip_content{
+        position: fixed;
+        right: 20px;
+        top: -30px;
+        font-size: 12px;
+        text-align: center;
+        color: #fff;
+        cursor: pointer;
+
+        &.init{
+            opacity: 0;
+            -webkit-transform: translate3d(0, -3000px, 0) scaleY(3);
+            transform: translate3d(0, -3000px, 0) scaleY(3);
+        }
+        
+        .line{
+            width: 1px;
+            height: 60px;
+            background: #f18017;
+            margin: 0 auto;
+            box-shadow: 2px 2px 10px #ccc;
+        }
+
+        .line2{
+            height: 10px;
+        }
+
+        .text_contnet{
+            background: #f18017;
+            padding: 8px;
+            box-shadow: 2px 2px 10px #ccc;
+        }
+
+        .btn{
+            padding-top: 5px;
+            background: #f18017;
+            padding: 5px;
+            box-shadow: 2px 2px 10px #ccc;
+            width: 50%;
+            margin: 0 auto;
+        }
+    }
 }
+@keyframes bounceIn {
+    0%,
+    60%,
+    75%,
+    90%,
+    to {
+        -webkit-animation-timing-function: cubic-bezier(.215, .61, .355, 1);
+        animation-timing-function: cubic-bezier(.215, .61, .355, 1)
+    }
+
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -3000px, 0) scaleY(3);
+        transform: translate3d(0, -3000px, 0) scaleY(3)
+    }
+
+    60% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 25px, 0) scaleY(.9);
+        transform: translate3d(0, 25px, 0) scaleY(.9)
+    }
+
+    75% {
+        -webkit-transform: translate3d(0, -10px, 0) scaleY(.95);
+        transform: translate3d(0, -10px, 0) scaleY(.95)
+    }
+
+    90% {
+        -webkit-transform: translate3d(0, 5px, 0) scaleY(.985);
+        transform: translate3d(0, 5px, 0) scaleY(.985)
+    }
+
+    to {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        opacity: 1;
+    }
+}
+.bounceAni{
+    animation: bounceIn 1s forwards;
+}
+
+@keyframes bounceOut {
+    20% {
+        -webkit-transform: translate3d(0, -10px, 0) scaleY(.985);
+        transform: translate3d(0, -10px, 0) scaleY(.985)
+    }
+
+    40%,
+    45% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 20px, 0) scaleY(.9);
+        transform: translate3d(0, 20px, 0) scaleY(.9)
+    }
+
+    to {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -2000px, 0) scaleY(3);
+        transform: translate3d(0, -2000px, 0) scaleY(3)
+    }
+}
+.bounceOut{
+    animation: bounceOut 1s forwards;
+}
+
+
 </style>
 

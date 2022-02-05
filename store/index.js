@@ -7,7 +7,8 @@ const store = () => new Vuex.Store({
     state: {
         previewPicSrc: '',
         showPreviewPop: 0,
-        canScroll: 1
+        canScroll: 1,
+        viewClickTip: 0
     },
     mutations: {
         resetValueEvt(state, {key, value}) {

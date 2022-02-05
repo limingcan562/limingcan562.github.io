@@ -3,18 +3,16 @@
         @mousewheel="controlScrollEvt"
         @touchmove="controlScrollEvt"
     >
-        <PostsHeader />
+        <HeaderPostsHeader />
         <Nuxt />
         <Footer />
-        <!-- <PreviewImagePop /> -->
+        <PreviewImagePop />
     </div>
 </template>
 
 <script>
-import {mapMutations, mapState} from 'vuex';
+import {mapState} from 'vuex';
 
-import PostsHeader from '@/components/header/PostsHeader.vue';
-import Footer from '@/components/footer/index.vue';
 import prism from 'prismjs';
 
 import 'prismjs/themes/prism.css';
@@ -22,11 +20,6 @@ import '@/assets/less/github-markdown.less';
 import '@/assets/less/markdown.less';
 
 export default {
-    components: {
-        PostsHeader,
-        Footer
-    },
-
     computed: {
         ...mapState([
             'canScroll'

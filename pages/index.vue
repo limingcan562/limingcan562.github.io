@@ -17,9 +17,6 @@
 </template>
 
 <script>
-import Header from '@/components/header/index.vue';
-import Footer from '@/components/footer/index.vue';
-
 export default {
   transition: 'fadeIn',
   async asyncData({$getEnglishMonth, $getMdName}) {
@@ -36,7 +33,7 @@ export default {
       year = createTime.split('-')[0],
       month = $getEnglishMonth(createTime.split('-')[1]),
       day = createTime.split('-')[2],
-      englishTime = `${month} ${day} ${year}`;
+      englishTime = `${month}.${day}.${year}`;
       
       return {
         title,
@@ -53,11 +50,6 @@ export default {
     return {
       previewData
     };
-  },
-
-  components: {
-    Header,
-    Footer
   },
 }
 </script>

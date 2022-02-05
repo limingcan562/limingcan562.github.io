@@ -1,6 +1,6 @@
 <template>
     <div class="about_content">
-        <Header />
+        <Header :headerText="'About me'" />
         <main>
             <section class="about">
                 <h3>{{aboutData.title}}</h3>
@@ -37,9 +37,6 @@
 </template>
 
 <script>
-import Header from '@/components/header/index.vue';
-import Footer from '@/components/footer/index.vue';
-
 export default {
     transition: 'slide',
     head() {
@@ -54,10 +51,6 @@ export default {
                 }
             ]
         }
-    },
-    components: {
-        Header,
-        Footer
     },
 
     data() {

@@ -194,21 +194,20 @@ plugins: [
 
 ### 关于`@babel/preset-env`配置项相关解析
 先看看以下配置：
-```javascript
-module.exports = {
-    presets: [
-        [
-            "@babel/env",
-            {
-                useBuiltIns: "usage",
-                modules: false
-            }
-        ]
-    ],
-    plugins: [
-        "@babel/plugin-transform-runtime"
+```json
+// babel.config.json
+"presets": [
+    [
+        "@babel/env",
+        {
+            "useBuiltIns": "usage",
+            "modules": false
+        }
     ]
-}
+],
+"plugins": [
+    "@babel/plugin-transform-runtime"
+]
 ```
 - 当`useBuiltIns: "entry"`时，需要手动在我们的文件内`import '@babel/polyfill'`，但是此时会引入所有当前`browserslist`不支持的`API`
 - 当`useBuiltIns: "usage"`时，不需要手动在我们的文件内`import '@babel/polyfill'`，并且会自动引入当前`browserslist`不支持的`API`，并且是当前`js`所用到的`es6+`模块，不会全部都引入
@@ -222,21 +221,20 @@ module.exports = {
     - 一般适用于整个前端业务项目
 
 相关配置如下：
-```javascript
-module.exports = {
-    presets: [
-        [
-            "@babel/env",
-            {
-                useBuiltIns: "usage",
-                modules: false
-            }
-        ]
-    ],
-    plugins: [
-        "@babel/plugin-transform-runtime"
+```json
+// babel.config.json
+"presets": [
+    [
+        "@babel/env",
+        {
+            "useBuiltIns": "usage",
+            "modules": false
+        }
     ]
-}
+],
+"plugins": [
+    "@babel/plugin-transform-runtime"
+]
 ```
 - **局部注入**：
   - 就是通过`@babel/plugin-transform-runtime`，`@babel/runtime-corejs3`配合使用将当前`browserslist`不支持的`API`进行注入
@@ -244,30 +242,24 @@ module.exports = {
   - 一般适用于开发`js`库
 
 相关配置如下： 
-```javascript
-module.exports = {
-    presets: [
-        [
-            "@babel/env",
-            {
-                modules: false
-            }
-        ]
-    ],
-    plugins: [
-        [
-            "@babel/plugin-transform-runtime",
-            {
-                "helpers": true,
-                "corejs": 3, // 如果为false，则不注入，但是此时整体项目需要支持缺失的API
-                "regenerator": true,
-                "absoluteRuntime": false,
-                "version": "7.17.0",
-                "useESModules": true
-            }
-        ]
+```json
+// babel.config.json
+"presets": [
+    "@babel/env"
+],
+"plugins": [
+    [
+        "@babel/plugin-transform-runtime",
+        {
+            "helpers": true,
+            "corejs": 3, // 如果为false，则不注入，但是此时代码所在的整体项目需要支持缺失的API
+            "regenerator": true,
+            "absoluteRuntime": false,
+            "version": "7.17.0",
+            "useESModules": true
+        }
     ]
-}
+]
 ``` 
 
 参考文章：

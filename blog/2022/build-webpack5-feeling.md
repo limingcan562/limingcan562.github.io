@@ -181,13 +181,98 @@ plugins: [
 
 
 ## `Babel`依赖配置
-- `@babel/polyfill`在`Babel 7.4.0`就被弃用了。所以不用在安装`@babel/polyfill`这个插件了
-- `Babel`是一个个人觉得蛮复杂的体系，大家可以好好阅读下面这几篇文章，读多几遍好好理解一下
+- `@babel/cli`：如果想用`npm`在终端编译`Babel`，则需要安装它
+- `@babel/core`：这个`Babel`核心`npm`包
+- `@babel/preset-env`：个人理解它就是个集合包，里面有很多`Babel`的插件跟语法规则，并且它已经内置了`@babel/runtime`包了。如果在`Babel.config.json`里面配置它，它还可以有针对性的对语法转化跟`polyfill`的部分引入
+- `@babel/polyfill`：`Babel`默认只转换语法，不转换新的`API`（如`Promise、Map、Symbol`等），所以`@babel/polyfill`的作用就像一个叠片，让所有浏览器都支持新的`API`
+- `@babel/plugin-transform-runtime`有三大作用（摘自网上）：  
+    1. 自动移除语法转换后内联的辅助函数（`inline Babel helpers`），使用`@babel/runtime/helpers`里的辅助函数来替代；  
+    2. 当代码里使用了`core-js`的`API`，自动引入`@babel/runtime-corejs3/core-js-stable/`，以此来替代全局引入的`core-js/stable`（避免污染全局）;  
+    3. 当代码里使用了`Generator/async`函数，自动引入`@babel/runtime/regenerator`，以此来替代全局引入的`regenerator-runtime/runtime`；
+
+> 注意：从`Babel7.4`开始，`@babel/polyfill`就不再推荐使用了，他变成了两个`npm`集合包的组成：`core-js`与`regenerator-runtime`
+
+### 关于`@babel/preset-env`配置项相关解析
+先看看以下配置：
+```javascript
+module.exports = {
+    presets: [
+        [
+            "@babel/env",
+            {
+                useBuiltIns: "usage",
+                modules: false
+            }
+        ]
+    ],
+    plugins: [
+        "@babel/plugin-transform-runtime"
+    ]
+}
+```
+- 当`useBuiltIns: "entry"`时，需要手动在我们的文件内`import '@babel/polyfill'`，但是此时会引入所有当前`browserslist`不支持的`API`
+- 当`useBuiltIns: "usage"`时，不需要手动在我们的文件内`import '@babel/polyfill'`，并且会自动引入当前`browserslist`不支持的`API`，并且是当前`js`所用到的`es6+`模块，不会全部都引入
+- 当`modules: "auto"`或者`默认值`时，我们当前开发`js`如果有`import`别的模块，则它会被编译成`require`的方式
+- 当`modules: "false"`时，我们当前开发`js`如果有`import`别的模块，则它编译的时候会保持`import`的方式，利于`Webpack`一类的打包工具，进行`tree shaking`
+
+### 对`Polyfill`补全方式的选择
+- **全局注入**
+    - 就是通过`polyfill`将当前`browserslist`不支持的`API`进行注入，注入后可以通过`window.[API]`访问到
+    - 例如全局注入了`Promise`，则可以通过`window.Promise`访问到
+    - 一般适用于整个前端业务项目
+
+相关配置如下：
+```javascript
+module.exports = {
+    presets: [
+        [
+            "@babel/env",
+            {
+                useBuiltIns: "usage",
+                modules: false
+            }
+        ]
+    ],
+    plugins: [
+        "@babel/plugin-transform-runtime"
+    ]
+}
+```
+- **局部注入**：
+  - 就是通过`@babel/plugin-transform-runtime`，`@babel/runtime-corejs3`配合使用将当前`browserslist`不支持的`API`进行注入
+  - 注入后可以不能通过`window.[API]`访问到。因为它只是局部注入，不会污染全局
+  - 一般适用于开发`js`库
+
+相关配置如下： 
+```javascript
+module.exports = {
+    presets: [
+        [
+            "@babel/env",
+            {
+                modules: false
+            }
+        ]
+    ],
+    plugins: [
+        [
+            "@babel/plugin-transform-runtime",
+            {
+                "helpers": true,
+                "corejs": 3, // 如果为false，则不注入，但是此时整体项目需要支持缺失的API
+                "regenerator": true,
+                "absoluteRuntime": false,
+                "version": "7.17.0",
+                "useESModules": true
+            }
+        ]
+    ]
+}
+``` 
 
 参考文章：
-- [`Babel`](https://babeljs.io/docs/en/) 
+- [`Babel`教程](https://www.jiangruitao.com/babel/)
 - [`Webpack4`搭建](https://itxiaohao.github.io/passages/webpack4-Babel7/)
-- [babel在`webpack`中使用和配置](https://blog.csdn.net/qq_15601471/article/details/99690530)
 
 ## 关于`devServer`配置的理解
 我想大家最懵圈的应该就是`devServer.static`（`Webpack5`是`static`，`Webpack4`是`contentBase`）这个配置了吧。是不是一直觉得，如果把里面的路径配置指向了我们打包出来的文件夹名字（`dist`），然后开启了`webpack-dev-server`服务器，就是访问的我们打包的那个资源（`dist`），其实并不是。这里大家可以自己建一个最简单的`demo`，然后配置改成下面这样：  

@@ -266,6 +266,22 @@ npm i @babel/runtime-corejs3 -S
 ]
 ``` 
 
+### 其他
+有时我们会自己开发一个`library`（自己封装的库），然后输出打包后的`library`，再`import`到自己的工程里；  
+或者将第三方的库下载到本地，然后在`import`到自己的工程里，这里以`vconsole`为例，可能会出现以下报错：  
+```javascript
+export 'default' (imported as 'fecmPlugin') was not found in '../plugins/vconsole.min' (module has no exports)
+```  
+这时我们可以添加一个[`Babel`插件](https://www.babeljs.cn/docs/babel-plugin-transform-modules-commonjs)，来解决这个问题  
+配置如下：  
+```babel.config.json
+"plugins": [
+    "@babel/plugin-transform-modules-commonjs"
+]
+```  
+
+
+
 参考文章：
 - [`Babel`教程](https://www.jiangruitao.com/babel/)
 - [`Webpack4`搭建](https://itxiaohao.github.io/passages/webpack4-Babel7/)

@@ -242,6 +242,10 @@ plugins: [
   - 一般适用于开发`js`库
 
 相关配置如下： 
+```javascript
+npm i @babel/runtime-corejs3 -S
+```
+
 ```json
 // babel.config.json
 "presets": [

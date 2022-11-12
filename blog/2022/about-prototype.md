@@ -1,7 +1,7 @@
 ---
-title: 如何让原生小程序支持less语法（最新教程）
-des: 网上文章太老了，必须拒绝繁琐的wxss，用更爽快的less
-createTime: 2022-9-13
+title: 最通俗易懂的原型、原型链理解
+des: __proto__、prototype、constructor到底是什么？用最通俗易懂的方法教会你
+createTime: 2022-3-14
 ---
 
 ## 最通俗易懂的原型、原型链理解

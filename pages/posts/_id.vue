@@ -123,6 +123,41 @@ export default {
         });
     }
 }
+
+
+// 定义一个父类
+function Animal() {
+    this.like = ['eat', 'drink', 'sleep'];
+}
+
+// 为父类的原型添加一个run方法
+Animal.prototype.run = function() {
+    console.log('跑步');
+}
+
+// 定义一个子类
+function Dog() {
+    this.name = 'limingcan';
+}
+
+// 将Dog的原型指向Animal的一个实例
+Dog.prototype = new Animal();
+
+// 实例一个由子类new 出来的对象
+const dog = new Dog();
+
+dog.like.push('play');
+
+const small_dog = new Dog();
+
+console.log(Animal.prototype);
+
+console.log(Dog.prototype);
+
+console.log(dog);
+
+console.log(small_dog.__proto__.__proto__.__proto__.__proto__);
+
 </script>
 
 <style lang="less" scoped>

@@ -287,7 +287,8 @@ console.log(cat);
 console.log(small_cat);
 console.log(cat.__proto__ === Animal);
 
-````  
+```` 
+
 
 打印：
 <img src="../md/js-inherit/pic_5.png" />  
@@ -304,4 +305,68 @@ console.log(cat.__proto__ === Animal);
 
 我们可以对比原型链继承方式，其实这两种方式差不多，所以它要跟原型链继承存在一样的缺点，但是实现起来比原型式继承更加简洁一些。如果我们只是想让一个对象跟另一个对象保持类似，原型式继承可能更加舒服，因为它不需要像原型链继承那样大费周章。接下来我们再看看另一种继承方式——寄生式继承。
 
+### 寄生式继承
+> 原理：它其实就是对原型式继承进行一个小封装，增强了一下实例出来的对象
 
+我们还是假设有一个父类构造函数`Animal`，还有一个子类构造函数`Cat`，来看看具体例子：
+
+
+````javascript
+// 定义一个父类（新建出来的对象的__proto__会指向它）
+const createObj = (parentPropety, ownProperty) => {
+  // 生成一个以parentPropety为原型的对象obj
+  const obj = Object.create(parentPropety, ownProperty);
+
+  // 增强功能
+  obj.catwalk = function() {
+    console.log('走猫步');
+  };
+
+  return obj;
+}
+
+
+const Animal = {
+  name: 'nobody',
+  like: ['eat', 'drink', 'sleep'],
+  run() {
+    console.log('跑步');
+  }
+};
+
+// 新建以Animal为原型的实例
+const cat = createObj(Animal, {
+    name: {
+      value: 'limingcan'
+    }
+})
+
+// 给实例cat属性like添加一个play值
+cat.like.push('play');
+
+const small_cat = createObj(Animal, {
+  name: {
+    value: 'mimi'
+  }
+})
+
+console.log(cat);
+console.log(small_cat);
+console.log(cat.__proto__ === Animal);
+
+```` 
+
+打印：
+<img src="../md/js-inherit/pic_6.png" />  
+
+总结：
+
+- 优点：
+  - 实现比原型链继承更简洁
+  - 子类实例可以直接访问到父类实例或父类原型上的属性方法
+
+- 缺点：
+  - 父类所有的引用类型属性都会实例出来的对象共享，所以修改一个实例对象的引用类型属性，会导致所有实例对象受到影响
+  - 实例化时，不能传参数
+
+寄生式继承优缺点跟原型式继承一样，但最重要的是它提供了一个类似**工厂的思想**，是对原型式继承的一个封装。前面我们说到组合继承还是会有一些缺陷，经过原型式继承跟寄生式继承，我们可以利用这两个继承的思想，来解决组合继承的缺陷，它就是寄生组合式继承。

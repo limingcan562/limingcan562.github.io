@@ -126,6 +126,18 @@ export default {
 
 
 // 定义一个父类（新建出来的对象的__proto__会指向它）
+const createObj = (parentPropety, ownProperty) => {
+  // 生成一个以pro为原型的对象obj
+  const obj = Object.create(parentPropety, ownProperty);
+
+  // 增强功能
+  obj.catwalk = function() {
+    console.log('走猫步');
+  };
+
+  return obj;
+}
+
 
 const Animal = {
   name: 'nobody',
@@ -136,33 +148,20 @@ const Animal = {
 };
 
 // 新建以Animal为原型的实例
-const cat = Object.create(
-  Animal,
-  // 这里定义的是实例自身的方法
-  {
+const cat = createObj(Animal, {
     name: {
       value: 'limingcan'
     }
-  }
-);
+})
 
 // 给实例cat属性like添加一个play值
 cat.like.push('play');
 
-const small_cat = Object.create(
-  Animal,
-  // 这里定义的是实例自身的方法
-  {
+const small_cat = createObj(Animal, {
     name: {
       value: 'mimi'
     }
-  }
-);
-
-console.log(cat);
-console.log(small_cat);
-console.log(cat.__proto__ === Animal);
-
+})
 
 setTimeout(() => {
     console.log(cat);

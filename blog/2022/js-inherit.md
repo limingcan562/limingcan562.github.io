@@ -132,7 +132,8 @@ console.log(cat.like === small_cat.like);
 
 ````javascript
 // 定义一个父类
-function Animal() {
+function Animal(name) {
+  this.name = name;
   this.like = ['eat', 'drink', 'sleep'];
   this.play = function() {
     console.log('到处玩');
@@ -146,8 +147,7 @@ Animal.prototype.run = function() {
 
 // 定义一个子类
 function Cat(name, age) {
-  Animal.call(this);
-  this.name = name;
+  Animal.call(this, name);
   this.age = age;
 }
 
@@ -190,3 +190,56 @@ console.log(small_cat.run);
 
 我们通过借用构造函数继承的方法，解决了原型链继承的缺点。但是又产生了一个新的问题——子类无法继承父类原型上的属性与方法，如果我们把这两种方式结合一下，会不会好点呢，于是有了组合继承这个继承方式。
 
+### 组合继承
+> 原理：原型链继承跟借用构造函数继承相结合。
+
+我们还是假设有一个父类构造函数`Animal`，还有一个子类构造函数`Cat`，来看看具体例子：
+
+````javascript
+// 定义一个父类
+function Animal(name, sex) {
+  this.name = name;
+  this.sex = sex;
+  this.like = ['eat', 'drink', 'sleep'];
+}
+
+// 为父类的原型添加一个run方法
+Animal.prototype.run = function() {
+  console.log('跑步');
+}
+
+// 定义一个子类
+function Cat(name, sex, age) {
+  // 第一次调用Animal构造函数
+  Animal.call(this, name, sex);
+  this.age = age;
+}
+
+// 核心：将Cat的原型指向父类Animal的一个实例（第二次调用Animal构造函数）
+Cat.prototype = new Animal();
+
+// cat.constructor是来自Cat.prototype.constructor
+// 不矫正的话，当前的cat.constructor指向的是Animal
+// 所以这里需要矫正一下Cat.prototype.constructor，因为Cat.prototype被重写，constructor被指向了new Animal().__proto__.constructor
+Cat.prototype.constructor = Cat;
+
+// 实例一个由子类new 出来的对象
+const cat = new Cat('limingcan', 'man', 27);
+console.log(cat);
+
+````  
+
+打印：
+<img src="../md/js-inherit/pic_4.png" />  
+
+由此我们能得出总结：
+- 优点：
+  - 利用原型链继承，将实例、子类、父类三者的原型链串联起来，让实例对象继承父类构造函数原型的方法与属性
+  - 利用借用构造函数继承，将父类构造函数的属性、方法添加到实例**自身**上，解决原型链继承，实例修改引用类型属性时对后续实例影响问题
+  - 利用构造函数继承，实现实例化时，可传参
+
+- 缺点：
+  - 两次调用父类构造函数`Animal`（第一次在子类`Cat`构造函数内调用，第二次在`new Animal()`时候调用）
+  - 实例自身拥有的属性，子类`Cat.prototype`也会有，造成不必要的浪费（因为`Cat.prototype`被重写为`new Animal()`了，`new Animal()`是父类的一个实例，也有`name`、`sex`、`like`属性）
+
+看来组合继承也不是最完美的继承方式。我们先把组合继承放一边，先看看什么是原型式继承。

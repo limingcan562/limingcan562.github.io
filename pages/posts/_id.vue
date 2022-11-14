@@ -136,21 +136,22 @@ Animal.prototype.run = function() {
 }
 
 // 定义一个子类
-function Dog() {
+function Cat() {
   this.name = 'limingcan';
 }
 
-// 将Dog的原型指向Animal的一个实例
-Dog.prototype = new Animal();
+// 核心：将Cat的原型指向父类Animal的一个实例
+Cat.prototype = new Animal();
 
-// Dog.prototype.constructor = Dog;
+// cat.constructor是来自Cat.prototype.constructor
+// 不矫正的话，当前的cat.constructor指向的是Animal
+// 所以这里需要矫正一下Cat.prototype.constructor，因为Cat.prototype被重写，constructor被指向了new Animal().__proto__.constructor
+Cat.prototype.constructor = Cat;
 
+// 实例一个由子类 new 出来的对象
+const cat = new Cat();
 
-// 实例一个由子类new 出来的对象
-const dog = new Dog();
-
-console.log(dog.constructor);
-
+console.log(cat instanceof Cat);
 
 </script>
 

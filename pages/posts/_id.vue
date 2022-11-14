@@ -124,52 +124,49 @@ export default {
     }
 }
 
-
-// 定义一个父类（新建出来的对象的__proto__会指向它）
-const createObj = (parentPropety, ownProperty) => {
-  // 生成一个以pro为原型的对象obj
-  const obj = Object.create(parentPropety, ownProperty);
-
-  // 增强功能
-  obj.catwalk = function() {
-    console.log('走猫步');
-  };
-
-  return obj;
+// 定义一个父类
+function Animal(name, sex) {
+  this.name = name;
+  this.sex = sex;
+  this.like = ['eat', 'drink', 'sleep'];
 }
 
+// 定义一个子类
+function Cat(name, sex, age) {
+  // 第一次调用Animal构造函数
+  Animal.call(this, name, sex);
+  this.age = age;
+}
 
-const Animal = {
-  name: 'nobody',
-  like: ['eat', 'drink', 'sleep'],
-  run() {
-    console.log('跑步');
-  }
-};
+// 定义一个利用原型式继承方式，跟寄生式继承思想来实现继承
+function inheritObj(parentProperty, childProperty) {
+  const finalProperty = Object.create(parentProperty.prototype);
 
-// 新建以Animal为原型的实例
-const cat = createObj(Animal, {
-    name: {
-      value: 'limingcan'
-    }
-})
+  finalProperty.constructor = childProperty;
 
-// 给实例cat属性like添加一个play值
-cat.like.push('play');
+  childProperty.prototype = finalProperty;
+}
 
-const small_cat = createObj(Animal, {
-    name: {
-      value: 'mimi'
-    }
-})
+// 为父类的原型添加一个run方法
+Animal.prototype.run = function() {
+  console.log('跑步');
+}
+
+// 实现寄生组合继承
+inheritObj(Animal, Cat);
+
+// 给子类的原型添加一个方法
+Cat.prototype.catwalk = function() {
+  console.log('走猫步');
+}
+
+// 实例一个由子类new 出来的对象
+const cat = new Cat('limingcan', 'man', 27);
+
 
 setTimeout(() => {
-    console.log(cat);
-    console.log(small_cat);
-    console.log(cat.__proto__ === Animal);
-}, 3000);
-
-
+    console.log(cat.__proto__.hasOwnProperty('constructor'));
+}, 2000);
 
 </script>
 

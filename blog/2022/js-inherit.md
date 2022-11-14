@@ -191,7 +191,7 @@ console.log(small_cat.run);
 我们通过借用构造函数继承的方法，解决了原型链继承的缺点。但是又产生了一个新的问题——子类无法继承父类原型上的属性与方法，如果我们把这两种方式结合一下，会不会好点呢，于是有了组合继承这个继承方式。
 
 ### 组合继承
-> 原理：原型链继承跟借用构造函数继承相结合。
+> 原理：利用原型链继承，实现实例对父类原型方法的继承；利用借用构造函数继承，实现实例对父类属性的继承。
 
 我们还是假设有一个父类构造函数`Animal`，还有一个子类构造函数`Cat`，来看看具体例子：
 
@@ -370,3 +370,57 @@ console.log(cat.__proto__ === Animal);
   - 实例化时，不能传参数
 
 寄生式继承优缺点跟原型式继承一样，但最重要的是它提供了一个类似**工厂的思想**，是对原型式继承的一个封装。前面我们说到组合继承还是会有一些缺陷，经过原型式继承跟寄生式继承，我们可以利用这两个继承的思想，来解决组合继承的缺陷，它就是寄生组合式继承。
+
+### 寄生式组合继承
+> 原理：利用原型链继承，实现实例对父类原型方法的继承；利用借用构造函数继承，实现实例对父类属性的继承，并且解决了组合继承带来的缺陷
+
+前面我们说到，组合继承会有以下两个缺点：
+  - 两次调用父类构造函数（第一次在子类构造函数内使用`call`或者`apply`方法时调用；第二次在将子类构造函数的prototype指向父类实例`new Animal()`时候调用）
+  - 实例自身拥有的属性，子类构造函数的`prototype`里也会有，造成不必要的浪费（因为子类构造函数的`protptype`被重写为父类的一个实例了）
+
+通过上面原型式继承的方式，我们可以把原型链继承里，子类构造函数的`protptype`被重写为父类的一个实例这一步，用寄生式继承的思想，用`Object.create()`去替换掉。我们还是假设有一个父类构造函数`Animal`，还有一个子类构造函数`Cat`，来看看具体例子：
+
+
+````javascript
+// 定义一个父类
+function Animal(name, sex) {
+  this.name = name;
+  this.sex = sex;
+  this.like = ['eat', 'drink', 'sleep'];
+}
+
+// 定义一个子类
+function Cat(name, sex, age) {
+  // 第一次调用Animal构造函数
+  Animal.call(this, name, sex);
+  this.age = age;
+}
+
+// 定义一个利用原型式继承方式，跟寄生式继承思想来实现继承
+function inheritObj(parentProperty, childProperty) {
+  const finalProperty = Object.create(parentProperty.prototype);
+
+  finalProperty.constructor = childProperty;
+
+  childProperty.prototype = finalProperty;
+}
+
+// 为父类的原型添加一个run方法
+Animal.prototype.run = function() {
+  console.log('跑步');
+}
+
+// 实现寄生组合继承
+inheritObj(Animal, Cat);
+
+// 给子类的原型添加一个方法
+Cat.prototype.catwalk = function() {
+  console.log('走猫步');
+}
+
+// 实例一个由子类new 出来的对象
+const cat = new Cat('limingcan', 'man', 27);
+
+console.log(cat);
+
+````  

@@ -183,7 +183,7 @@ console.log(small_cat.run);
 总结：
 - 优点：
   - 实例化时，可以传参
-  - 父类里的所有属性、方法就像一个蓝本，会被后面实例出来的共享，但是修改一个实例对象的引用类型属性时，不会导致所有实例对象受到影响
+  - 父类里的所有属性、方法就像一个蓝本，会被后面实例出来的复制，并且添加到实例自己本身独立存在，所有修改一个实例对象的引用类型属性时，不会导致所有实例对象受到影响
 
 - 缺点：
   - 无法继承父类原型上的属性与方法
@@ -243,3 +243,65 @@ console.log(cat);
   - 实例自身拥有的属性，子类`Cat.prototype`也会有，造成不必要的浪费（因为`Cat.prototype`被重写为`new Animal()`了，`new Animal()`是父类的一个实例，也有`name`、`sex`、`like`属性）
 
 看来组合继承也不是最完美的继承方式。我们先把组合继承放一边，先看看什么是原型式继承。
+
+### 原型式继承
+> 原理：用于创建一个新对象，使用现有的对象来作为新创建对象的原型（prototype），详细用法可以看看[这里](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create)。
+
+我们还是假设有一个父类构造函数`Animal`，还有一个子类构造函数`Cat`，来看看具体例子：
+
+````javascript
+// 定义一个父类（新建出来的对象的__proto__会指向它）
+const Animal = {
+  name: 'nobody',
+  like: ['eat', 'drink', 'sleep'],
+  run() {
+    console.log('跑步');
+  }
+};
+
+// 新建以Animal为原型的实例
+const cat = Object.create(
+  Animal,
+  // 这里定义的是实例自身的方法
+  {
+    name: {
+      value: 'limingcan'
+    }
+  }
+);
+
+// 给实例cat属性like添加一个play值
+cat.like.push('play');
+
+const small_cat = Object.create(
+  Animal,
+  // 这里定义的是实例自身的方法
+  {
+    name: {
+      value: 'mimi'
+    }
+  }
+);
+
+console.log(cat);
+console.log(small_cat);
+console.log(cat.__proto__ === Animal);
+
+````  
+
+打印：
+<img src="../md/js-inherit/pic_5.png" />  
+
+总结：
+
+- 优点：
+  - 实现比原型链继承更简洁
+  - 子类实例可以直接访问到父类实例或父类原型上的属性方法
+
+- 缺点：
+  - 父类所有的引用类型属性都会实例出来的对象共享，所以修改一个实例对象的引用类型属性，会导致所有实例对象受到影响
+  - 实例化时，不能传参数
+
+我们可以对比原型链继承方式，其实这两种方式差不多，所以它要跟原型链继承存在一样的缺点，但是实现起来比原型式继承更加简洁一些。如果我们只是想让一个对象跟另一个对象保持类似，原型式继承可能更加舒服，因为它不需要像原型链继承那样大费周章。接下来我们再看看另一种继承方式——寄生式继承。
+
+

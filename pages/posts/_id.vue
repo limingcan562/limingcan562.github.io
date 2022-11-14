@@ -112,7 +112,7 @@ export default {
         // if (!this.isMobileEvt()) return;
 
         this.bounceAni = 1;
-        document.querySelector('#markdown-body').addEventListener('mousedown', evt => {
+        document.querySelector('#markdown-body').addEventListener('click', evt => {
             const {target: {src}} = evt;
             // 图片对象
             if (src) {
@@ -124,40 +124,54 @@ export default {
     }
 }
 
-// 定义一个父类
-function Animal(name, sex) {
-  this.name = name;
-  this.sex = sex;
-  this.like = ['eat', 'drink', 'sleep'];
-}
 
-// 为父类的原型添加一个run方法
-Animal.prototype.run = function() {
-  console.log('跑步');
-}
+// 定义一个父类（新建出来的对象的__proto__会指向它）
 
-// 定义一个子类
-function Cat(name, sex, age) {
-  Animal.call(this, name, sex);
-  this.age = age;
-}
+const Animal = {
+  name: 'nobody',
+  like: ['eat', 'drink', 'sleep'],
+  run() {
+    console.log('跑步');
+  }
+};
 
-// 核心：将Cat的原型指向父类Animal的一个实例
-Cat.prototype = new Animal();
+// 新建以Animal为原型的实例
+const cat = Object.create(
+  Animal,
+  // 这里定义的是实例自身的方法
+  {
+    name: {
+      value: 'limingcan'
+    }
+  }
+);
 
-// cat.constructor是来自Cat.prototype.constructor
-// 不矫正的话，当前的cat.constructor指向的是Animal
-// 所以这里需要矫正一下Cat.prototype.constructor，因为Cat.prototype被重写，constructor被指向了new Animal().__proto__.constructor
-Cat.prototype.constructor = Cat;
+// 给实例cat属性like添加一个play值
+cat.like.push('play');
 
-// 实例一个由子类new 出来的对象
-const cat = new Cat('limingcan', 'man', 27);
+const small_cat = Object.create(
+  Animal,
+  // 这里定义的是实例自身的方法
+  {
+    name: {
+      value: 'mimi'
+    }
+  }
+);
+
+console.log(cat);
+console.log(small_cat);
+console.log(cat.__proto__ === Animal);
 
 
 setTimeout(() => {
-console.log(cat);
-    
+    console.log(cat);
+    console.log(small_cat);
+    console.log(cat.__proto__ === Animal);
 }, 3000);
+
+
+
 </script>
 
 <style lang="less" scoped>

@@ -112,7 +112,7 @@ export default {
         // if (!this.isMobileEvt()) return;
 
         this.bounceAni = 1;
-        document.querySelector('#markdown-body').addEventListener('mousedown', evt => {
+        document.querySelector('#markdown-body').addEventListener('click', evt => {
             const {target: {src}} = evt;
             // 图片对象
             if (src) {

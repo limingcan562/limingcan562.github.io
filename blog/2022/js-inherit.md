@@ -382,6 +382,7 @@ console.log(cat.__proto__ === Animal);
 
 
 ````javascript
+
 // 定义一个父类
 function Animal(name, sex) {
   this.name = name;
@@ -397,12 +398,12 @@ function Cat(name, sex, age) {
 }
 
 // 定义一个利用原型式继承方式，跟寄生式继承思想来实现继承
-function inheritObj(parentProperty, childProperty) {
-  const finalProperty = Object.create(parentProperty.prototype);
+function inheritObj(parentClass, childClass) {
+  const finalProperty = Object.create(parentClass.prototype);
 
-  finalProperty.constructor = childProperty;
+  finalProperty.constructor = childClass;
 
-  childProperty.prototype = finalProperty;
+  childClass.prototype = finalProperty;
 }
 
 // 为父类的原型添加一个run方法
@@ -424,3 +425,25 @@ const cat = new Cat('limingcan', 'man', 27);
 console.log(cat);
 
 ````  
+
+寄生式组合继承打印：  
+<img src="../md/js-inherit/pic_7.png" />  
+
+组合继承打印：  
+<img src="../md/js-inherit/pic_4.png" />  
+
+我们可以对比一下组合继承那张图会发现：
+  - 实例`cat`自身该有的属性都有
+  - `Cat.prototype`也干净了，没有把父类的属性都复制一遍，只有自己添加的`catwalk`方法
+  - `Animal.prototype`也十分干净，只有自己添加的`run`方法
+
+这是基本我们最想要的结果，也是最理想的继承方式。  
+
+
+解析：  
+
+我们想想为什么在组合继承时，我们要把子类的`prototype`重写为父类的实例呢（`Cat.prototype = new Animal()`）？核心是因为我们要**打通实例、子类、父类三者的原型链**，从而实现继承。我们顺着这个思路，解析一下上面`inheritObj`这个方法。短短三行，但是为什么会发生那么神奇的事：
+ - `const finalProperty = Object.create(parentClass.prototype);`：新建一个以`parentClass.prototype`为原型的`finalProperty`对象。此时`finalProperty.constructor`指向的是`parentClass.prototype.constructor`
+ - `finalProperty.constructor = childClass;`：寄生式继承思想，增强对象。了矫正`finalProperty.constructor`，让其指向`childClass`
+ - `childClass.prototype = finalProperty;`：打通子类`childClass.prototype`指向新建出来的对象`finalProperty`。打通了子类`childClass`与父类的`parentClass`原型链，实现了父子类的继承。
+

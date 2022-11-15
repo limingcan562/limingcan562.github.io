@@ -139,12 +139,12 @@ function Cat(name, sex, age) {
 }
 
 // 定义一个利用原型式继承方式，跟寄生式继承思想来实现继承
-function inheritObj(parentProperty, childProperty) {
-  const finalProperty = Object.create(parentProperty.prototype);
+function inheritObj(parentClass, childClass) {
+  const finalProperty = Object.create(parentClass.prototype);
 
-  finalProperty.constructor = childProperty;
+  finalProperty.constructor = childClass;
 
-  childProperty.prototype = finalProperty;
+  childClass.prototype = finalProperty;
 }
 
 // 为父类的原型添加一个run方法
@@ -165,8 +165,8 @@ const cat = new Cat('limingcan', 'man', 27);
 
 
 setTimeout(() => {
-    console.log(cat.__proto__.hasOwnProperty('constructor'));
-}, 2000);
+    console.log(cat);
+}, 1000);
 
 </script>
 

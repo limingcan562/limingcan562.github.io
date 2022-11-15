@@ -124,11 +124,17 @@ export default {
     }
 }
 
+
 // 定义一个父类
 function Animal(name, sex) {
   this.name = name;
   this.sex = sex;
   this.like = ['eat', 'drink', 'sleep'];
+}
+
+// 为父类的原型添加一个run方法
+Animal.prototype.run = function() {
+  console.log('跑步');
 }
 
 // 定义一个子类
@@ -138,35 +144,22 @@ function Cat(name, sex, age) {
   this.age = age;
 }
 
-// 定义一个利用原型式继承方式，跟寄生式继承思想来实现继承
-function inheritObj(parentClass, childClass) {
-  const finalProperty = Object.create(parentClass.prototype);
+// 核心：将Cat的原型指向父类Animal的一个实例（第二次调用Animal构造函数）
+Cat.prototype = new Animal();
 
-  finalProperty.constructor = childClass;
-
-  childClass.prototype = finalProperty;
-}
-
-// 为父类的原型添加一个run方法
-Animal.prototype.run = function() {
-  console.log('跑步');
-}
-
-// 实现寄生组合继承
-inheritObj(Animal, Cat);
-
-// 给子类的原型添加一个方法
-Cat.prototype.catwalk = function() {
-  console.log('走猫步');
-}
+// 实例cat.constructor是来自Cat.prototype.constructor
+// 不矫正的cat.constructor话，当前的cat.constructor指向的是Animal
+// 因为Cat.prototype被重写，constructor被指向了new Animal().__proto__.constructor，相当于Animal.prototype.constructor
+Cat.prototype.constructor = Cat;
 
 // 实例一个由子类new 出来的对象
 const cat = new Cat('limingcan', 'man', 27);
 
-
 setTimeout(() => {
-    console.log(cat);
-}, 1000);
+console.log(cat);
+    
+}, 500);
+
 
 </script>
 

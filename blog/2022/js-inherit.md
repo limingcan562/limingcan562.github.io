@@ -207,7 +207,7 @@ console.log(small_cat.run);
 ### 组合继承
 组合继承顾名思义就是，利用原型链继承跟借用构造函数继承相结合，而创造出来的一种新的继承方式，是不是很好记。
 
-> 原理：利用原型链继承，实现实例对父类原型（`Animal.protoytype`）上的方法与属性继承；利用借用构造函数继承，实现实例对父类构造函数（`function Animal() {}`）里的属性的继承，并且解决原型链继承的缺陷。
+> 原理：利用原型链继承，实现实例对父类原型（`Animal.protoytype`）上的方法与属性继承；利用借用构造函数继承，实现实例对父类构造函数（`function Animal() {}`）里方法与性的继承，并且解决原型链继承的缺陷。
 
 来看看具体例子：
 
@@ -313,10 +313,10 @@ console.log(cat.__proto__ === Animal);
 
 - 优点：
   - 实现比原型链继承更简洁（不需要写什么构造函数了，也不需要写子类`Cat`，直接父类继承`Animal`）
-  - 子类实例可以直接访问到父类实例或父类原型上的属性方法
+  - 子类实例可以访问到父类的属性方法
 
 - 缺点：
-  - 父类所有的引用类型属性都会实例出来的对象共享，所以修改一个实例对象的引用类型属性，会导致所有实例对象受到影响
+  - 父类所有的引用类型属性都会被实例出来的对象共享，所以修改一个实例对象的引用类型属性，会导致所有实例对象受到影响
   - 实例化时，不能传参数
 
 我们可以对比原型链继承方式，其实这两种方式差不多，所以它要跟原型链继承存在一样的缺点，但是实现起来比原型式继承更加简洁方便一些。如果我们只是想让一个对象跟另一个对象保持类似，原型式继承可能更加舒服，因为它不需要像原型链继承那样大费周章。接下来我们再看看另一种继承方式——寄生式继承。
@@ -381,16 +381,16 @@ console.log(cat.__proto__ === Animal);
 
 - 优点：
   - 实现比原型链继承更简洁
-  - 子类实例可以直接访问到父类实例或父类原型上的属性方法
+  - 子类实例可以访问到父类的属性方法
 
 - 缺点：
-  - 父类所有的引用类型属性都会实例出来的对象共享，所以修改一个实例对象的引用类型属性，会导致所有实例对象受到影响
+  - 父类所有的引用类型属性都会被实例出来的对象共享，所以修改一个实例对象的引用类型属性，会导致所有实例对象受到影响
   - 实例化时，不能传参数
 
 寄生式继承优缺点跟原型式继承一样，但最重要的是它提供了一个类似**工厂的思想**，是对原型式继承的一个封装。前面我们说到组合继承还是会有一些缺陷，通过原型式继承跟寄生式继承，我们可以利用这两个继承的思想，来解决组合继承的缺陷，它就是寄生组合式继承。
 
 ### 寄生式组合继承
-> 原理：利用原型链继承，实现实例对父类原型（`Animal.prototype`）方法与属性的继承；利用借用构造函数继承，实现实例对父类构造函数（`function Animal() {}`）里的属性的继承，并且解决了组合继承带来的缺陷
+> 原理：利用原型链继承，实现实例对父类原型（`Animal.prototype`）方法与属性的继承；利用借用构造函数继承，实现实例对父类构造函数（`function Animal() {}`）里方法与属性的继承，并且解决了组合继承带来的缺陷
 
 前面我们说到，组合继承会有以下两个缺点：
   - 会两次调用父类构造函数`function Animal() {}`。（第一次在子类构造函数内使用`call`或者`apply`方法时调用；第二次在`Cat.prototype = new Animal()`时候调用了）
@@ -466,7 +466,7 @@ console.log(cat);
 我们想想为什么在组合继承时，我们要`Cat.prototype = new Animal()`？核心是因为我们要**打通实例`cat`、子类`Cat`、父类`Animal`三者的原型链**，从而实现继承。我们顺着这个思路，解析一下上面`inheritObj`这个方法，短短三行，但是为什么会发生那么神奇的事：
  - `const finalProperty = Object.create(parentClass.prototype)`：浅拷贝一份`parentClass.prototype`，并将其作为`finalProperty`对象的原型，即`finalProperty.__proto__ === parentClass.prototype`。此时`finalProperty.constructor`指向的是`parentClass.prototype.constructor`
  - `finalProperty.constructor = childClass`：寄生式继承思想，增强对象。矫正`finalProperty.constructor`，让其指向`childClass`
- - `childClass.prototype = finalProperty`：使得实例找不到方法属性，会去`childClass.prototype`找；再不到，会去`finalProperty`找；再找不到会去`finalProperty__proto__（parentClass.prototype）`找。打通了子类`childClass`与父类的`parentClass`原型链，实现了父子类的继承。
+ - `childClass.prototype = finalProperty`：使得实例找不到方法属性，会去`childClass.prototype`（`finalProperty`）里找；再找不到会去`finalProperty.__proto__（parentClass.prototype）`里找。打通了子类`childClass`与父类的`parentClass`原型链，实现了父子类的继承。
 
 `inheritObj`方法，其实质就是下面的实现，这样可能可以更加直观的看出继承：
 

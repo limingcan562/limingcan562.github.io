@@ -164,8 +164,7 @@ export default {
     .base;
     position: fixed;
     z-index: 999;
-    background: rgba(0, 0, 0, .9);
-    
+    background: rgba(0, 0, 0, .8);
 
     .loading_content{
         max-width: 630px;
@@ -190,6 +189,7 @@ export default {
         box-sizing: border-box;
         visibility: hidden;
         opacity: 0;
+        cursor: move;
 
         &.show{
             visibility: visible;
@@ -241,7 +241,8 @@ export default {
             overflow: hidden;
 
             img{
-                width: 100%;
+                max-width: 100%;
+                max-height: 100%;
                 pointer-events: none;
             }
         }

@@ -1,13 +1,13 @@
 ---
-title: 实例化对象的prototype是什么？带你搞明白到底什么是原型、原型链
+title: __proto__、prototype、constructor、原型链，真没那么难！教你怎么套用方法直接判断
 des: __proto__、prototype、constructor到底是什么？带你一步步搞明白
 createTime: 2022-3-14
 ---
 
-## 实例化对象的`prototype`是什么？带你搞明白到底什么是原型、原型链
+## `__proto__`、`prototype`、`constructor`、原型链，真没那么难！教你怎么套用方法直接判断
 
 ### 前言
-首先原型、原型链，算是前端进阶里面必不可少，十分重要的一块了。在面试，面试官很喜欢用这一块来辨别你的底层知识掌握的怎么样；用的第三方框架，库里面，很多功能模块化了，但大部分功能都继承自一个基类。既然涉及到继承，那必不可少得先了解原型链，所以了解原型、原型链对我们使用第三方的框架、库也有着很大的帮助。  
+首先原型、原型链，算是前端进阶里面必不可少，十分重要的一块了。在面试，，这块特别绕，所以面试官很喜欢用这一块来辨别你的底层知识掌握的怎么样。用的第三方框架，库里面，很多功能模块化了，但大部分功能都继承自一个基类。既然涉及到继承，那也必不可少得先了解原型链，所以原型链确实重中之重。  
 
 ### 为什么大家对原型，原型链子会感到“懵”跟“绕”
 其本质是因为，**大家都没理清楚`__proto__`、`prototype`、`constructor`三者的联系**。所以很多人在看这一块知识的时候，刚开头看可能还能理解，看久了就懵了，因为代码中充斥着各种`x.__proto__.__proto__`，`x.__proto__.constructor.prototype`，`x.prototype.__proto__`等等，这当然会懵掉。所以我们要理解原型、原型链是什么，一定要先搞明白，`__proto__`、`prototype`、`constructor`这三个到底是个什么东西，再弄明白它们三个是什么联系。  
@@ -64,7 +64,7 @@ console.log(People.prototype.constructor === People);
 // 打印true --> 说明实例的__proto__.constructor 就是 构造函数的prototype.constructor（由第一个打印可知person.__proto__ = People.prototype）
 console.log(person.__proto__.constructor === People.prototype.constructor);
 
-// 打印People --> 说明实例的constructor指的就是实例的构造函数
+// 打印People --> 说明实例的constructor指向的就是实例的构造函数
 console.log(person.constructor.name);
 
 // 打印fale --> 说明实例自身是没有的constructor属性的
@@ -81,7 +81,7 @@ console.log(person.constructor === person.__proto__.constructor, person.construc
 - `__proto__`跟`prototype`是什么联系：  
   如果有一个实例，它是由一个构造函数实例而来，那么这个实例的`__proto__`一定指向这个构造函数的`prototype`，即`person.__proto__ = People.prototype`
 - `prototype`跟`constructor`是什么联系：  
-  `constructor`就是某个构造函数的`prototype`**自身**的一个属性（用`hasOwnProperty`可验证），它指向的就是这个构造函数本身，即`People.prototype.constructor = People`
+  `constructor`就是某个普通构造函数的`prototype`**自身**的一个属性（用`hasOwnProperty`可验证），它指向的就是这个构造函数本身，即`People.prototype.constructor = People`
 - `__proto__`跟`constructor`是什么联系：  
   `__proto__`跟`constructor`的联系跟`prototype`与`constructor`的联系一样。因为以`.__proto__`结尾的，它最后一定**指向某个构造函数的原型对象（`People.prototype`）**，然后又由于`constructor`是某个构造函数的`prototype`**自身**的一个属性，因此我们可以这么看：`person.__proto__.constructor = People.prototype.constructor`
 
@@ -99,29 +99,30 @@ ok，看到这里，大家可以先暂停一下，整理一下思路。理一理
 经过上述的知识点，相信大家对原型链应该有个基本的认识里吧，现在我们来总结一下，看看有没有什么方法规律。
 
 ### 方法总结
-在看到一堆类似`.__proto__.__proto__.__proto__`、`.__proto__.__proto__.prototype`、`.__proto__.prototype.consturtor`什么的，先不要慌：
-  1. 我们直接看最后一个属性，看看是以什么结尾，心里有个大概知道最后的返回值是什么
-  2. 然后再一步步反推前面调用的都是什么对象，
-  3. 再推出它最后具体返回值的是什么。
+在看到一堆类似`.__proto__.__proto__.__proto__`、`.__proto__.__proto__.prototype`、`.__proto__.prototype.consturtor`什么的，先不要慌。
 
-> **重点额外说明**：
-  - 如果最后以`.__proto__`结尾，它最后返回的一定是某个构造函数的`prototype`（`Object.prototype.__proto__`除外，它到顶了，是原型链的顶端，返回`null`）
-    <!-- - 它最后一定**指向某个构造函数的原型对象（`构造函数.prototype`）**， -->
+> 思想步骤：
 
- - 如果是以`.prototype`结尾，那么它前面一定是个构造函数，因为只有函数才会有`prototype`属性（因为一般以`.prototype`结尾返回的都是这个构造函数的`prototype`所有的方法与属性，所以题目很少会以`.prototype`结尾）
+  1. 我们直接看最后一个属性，看看是以什么结尾
+  2. 然后再一步步反推前面调用的都是什么对象
+  3. 最后再推出它具体返回值的是什么
 
- - 如果是以`.constructor`结尾，先弄清楚前面是什么；
-    - 如果前面是实例，它返回的是创造实例的那个构造函数；
-    - 如果前面直接是顶级类构造函数或者是普通构造函数（`Function.constructor`或者`People.constructor`），它将会指向这个构造函数的顶级构造函数`Function`（所有构造函数都是函数，都由顶级构造函数`Function`而来，所以`constructor`当然指向它；
-    - 如果前面直接是普通构造函数（`People.constructor`），它将会返回`Function`，因为构造函数也是函数，当然由函数顶级基类构造函数`Function`构造而来
-    - 如果前面是非顶级构造函数的`prototype`（`People.prototype`），因为实例的`constructor`是继承自`普通构造函数.prototype.constructor`的，所以`普通构造函数.prototype.constructor`必须指回它自己，（`普通构造函数.prototype.constructor = 普通构造函数`）。针对这点，我们看看它是怎么继承来的。
+> 规律：
+  1. 如果最后以`.__proto__`结尾，它最后返回的一定是某个构造函数的`prototype`（`Object.prototype.__proto__`除外，它到顶了，是原型链的顶端，返回`null`）
 
-    `constructor`整个继承的流程是：在实例`person`本身查找，找不到去`person.__proto__`（`People.prototype`）找，发现有`People.prototype.constructor`，又因为`People.prototype.constructor = People`返回它，所以`person.constructor = People`。
+ 2. 如果是以`.prototype`结尾，那么它前面一定是个构造函数，因为只有函数才会有`prototype`属性（因为一般以`.prototype`结尾返回的都是这个构造函数的`prototype`所有的方法与属性，所以题目很少会以`.prototype`结尾）
+
+ 3. 如果是以`.constructor`结尾，先弄清楚前面是什么
+    - 如果前面是**实例**，那它直接返回创造实例的那个构造函数；
+    - 如果前面**直接是顶级基类构造函数**（`Function.constructor`）或者**直接是普通构造函数**（`People.constructor`），它会直接指向**构造所有函数的顶级基类构造函数**`Function`（所有构造函数都是函数，都由顶级构造函数`Function`而来，所以`constructor`当然指向它；
+    - 如果前面是**非顶级构造函数（普通函数）的原型对象**（`People.prototype.constructor`），因为实例的`constructor`是继承自`普通构造函数.prototype.constructor`，所以`普通构造函数.prototype.constructor`必须指回它自己，（`普通构造函数.prototype.constructor = 普通构造函数`）。针对这点，我们看看它是怎么继承来的。
+
+    `constructor`整个继承的流程是：在实例`person`本身查找，找不到去`person.__proto__`（`People.prototype`）找，发现有`People.prototype.constructor`，并且`People.prototype.constructor = People`返回它，所以`person.constructor = People`。
     流程如图所示：  
     ![原型链图](../md/about-prototype/pic_2.png)
 
 
-ok，经过上面的方法总结，还有重点额外说明，我们还是用上面那个例子试试：
+ok，经过上面总结出的思想步骤跟规律，我们来试试：
 ```javascript
 // 定义一个People构造函数
 function People() {
@@ -155,21 +156,19 @@ console.log(Object.__proto__);
 
 - 我们以第一道题为例，解析一下：
   1. 先看是以什么结尾。以`.__proto__`
-  2. ok，心里有个大概了，它肯定返回某个构造函数的`prototype`
-  3. 再反推一下前面是调用的都是什么对象。前面是`People`，`People`是什么？是构造函数，函数都有一个顶级基类构造函数，那就是`Function`，所以`People.__proto__`返回的就是`Function.prototype`。
+  2. ok，心里有个大概了，根据规律总结第一点，它肯定返回某个构造函数的`prototype`
+  3. 再反推一下前面调用的都是什么对象。前面是`People`，`People`是什么？是构造函数，函数都有一个顶级基类构造函数，那就是`Function`，所以`People.__proto__`返回的就是`Function.prototype`。
 
 - 我们以第二道题为例，解析一下：
   1. 先看是以什么结尾。以`.constructor`
-  2. 调用对象又是普通构造函数，ok，心里有个大概了，它肯定返回某个构造函数的本身
-  3. 再反推一下前面是调用的都是什么对象。大家是不是以为返回值是`People`本身，其实不是喔，前面是`People`，`People`是什么？是构造函数，那就是构造函数的`constructor`，那它当然返回顶级基类构造函数`Function`。（`People`自身没有`constructor`，它继承自`Function.prototype.constructor`）
+  2. 调用对象直接是普通构造函数，根据规律总结第三点的第二小点，直接得出`Function`
 
 - 我们再以第六道题为例，解析一下：
   1. 先看是以什么结尾。以`.constructor`
-  2. ok，心里有个大概了，它肯定返回某个构造函数的本身
-  3. 再反推一下前面是调用的都是什么对象。先看`person.__proto__`，返回的是`People.prototype`，那这题就变成了`People.prototype.__proto__.constructor`。再继续看，`People.prototype.__proto__`返回的是什么，`Object.prototype`，那这题实际就是`Object.prototype.constructor`。根据第二点，那它返回的就是`Object`本身，`Object`是一个所有对象顶级基类构造函数。
+  2. 再反推一下前面是调用的都是什么对象。先看`person.__proto__`，返回的是`People.prototype`，那这题就变成了`People.prototype.__proto__.constructor`。再继续看，`People.prototype.__proto__`返回的是什么，`Object.prototype`，那这题实际就是`Object.prototype.constructor`。根据规律总结第三点的第三小点，那它返回的就是`Object`本身。
 
 
-> 大家一定要注意，`Object.__proto__`跟`Function.__proto__`。`Object`跟`Function`都是顶级构造函数，所以`Object.__proto__`、`Function.__proto__`返回的都是`Function.prototype`
+> 大家一定要注意，`Object.__proto__`跟`Function.__proto__`，`Object`跟`Function`都是顶级构造函数，所以`Object.__proto__`、`Function.__proto__`返回的都是`Function.prototype`
 
 
 
@@ -214,8 +213,6 @@ console.log(Object.prototype.__proto__); // null
 
 
 ### 最后
-看到这里，文章的标题，大家知道答案了吗？  
-
 原型、原型链本来就挺绕的，所以大家先了解`__proto__`、`prototype`、`constructor`是什么，再明白它们之间的是什么联系，循环渐进。等理解以后，多画几遍原型链图加深理解。OK，最后祭出一张原型链图：
 > **红色链表示的就是实例`person`原型链**
 

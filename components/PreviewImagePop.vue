@@ -239,6 +239,9 @@ export default {
             z-index: 1;
             margin: 0 auto;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             img{
                 max-width: 100%;

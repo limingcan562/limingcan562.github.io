@@ -73,7 +73,7 @@ console.log(cat);
 它把`Cat.prototype`整个重写了，并将两者通过原型链联系起来，从而实现继承。因为我们将`Cat.prototype`指向了父类`Animal`的一个实例，我们暂时把这个实例叫做`中介实例X`，这个`中介实例X`自己也有一个`__proto__`，它又指向了`Animal.prototype`。所以当实例`cat`在自身找不到属性方法时，它会去`cat.__proto__`（相当于`Cat.prototype`，但是`Cat.prototype`被重写成了`中介实例X`，所以也是去`中介实例X`里面找）找。如果`中介实例X`也找不到，就会去`中介实例X.__proto__`（相当于`Animal.prototype`）找。有值的话，则返回值；没有值的话又会去`Animal.prototype.__proto__`（相当于`Object.prototype`）找。有值的话，则返回值；没有值的话又会去`Object.prototype.__proto__`找，但是`Object.prototype.__proto__`返回`null`，原型链到顶，一条条原型链搜索完毕，都没有，则返回`undefined`。所以这就是为什么实例`cat`**自身**没有`like`属性跟`run`方法，但是还是可以访问。上述的大致过程，我们可以这样看：
 <img src="../md/js-inherit/pic_1.png" />  
 
-这条链有点绕，所以这也是为什么大家对原型链继承总是那么晕头转向的原因。建议读的时候想一下这条链是什么样的，怎么来的。但是核心还是要清楚原型链，所以对原型链不理解的同学，建议还是先把原型链弄清楚，这样才好理解继承。[去搞懂](https://limingcan562.github.io/posts/about-prototype)  
+这条链有点绕，所以这也是为什么大家对原型链继承总是那么晕头转向的原因。建议读的时候想一下这条链是什么样的，怎么来的。读到这里的同学，如果感觉自己看的不是很懂，那暂时不用继续往下看啦，说明原型链还没有弄清楚，建议还是先把原型链弄清楚，这样才好理解继承。[去搞懂](https://limingcan562.github.io/posts/about-prototype)  
 
 
 如果我们这时候给实例`cat`的`like`属性`push`一个值，看看下面例子： 

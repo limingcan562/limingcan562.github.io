@@ -8,7 +8,8 @@ const store = () => new Vuex.Store({
         previewPicSrc: '',
         showPreviewPop: 0,
         canScroll: 1,
-        viewClickTip: 0
+        viewClickTip: 0,
+        githubHomePage: 'https://github.com/limingcan562'
     },
     mutations: {
         resetValueEvt(state, {key, value}) {

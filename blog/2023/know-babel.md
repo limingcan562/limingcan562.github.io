@@ -600,7 +600,7 @@ const usa = new Country();
 
 编译跟打包后的文件：
 
-<img src="../md/use-transform-runtime.png" alt="big-dist-size.png" width="100%" />
+<img src="../md/know-babel/use-transform-runtime.png" alt="big-dist-size.png" width="100%" />
 
 
 我们会发现：

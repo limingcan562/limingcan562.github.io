@@ -92,11 +92,6 @@ header{
             display: flex;
             align-items: center;
 
-
-            .about_btn{
-                margin-left: 8px;
-            }
-
             a{
                 color: #666;
                 font-size: 13px;

@@ -1,5 +1,5 @@
 ---
-title: Babel文档没那么难读，带你一步步了解Babel主要的几个@babel/x-x包
+title: 带你一起梳理Babel各个包，对Babel不要再懵懵懂懂啦
 des: 学习Babel 7，看懂官方文档，梳理、了解，我们平时接触Babel用到的主要几个包，搞清楚Babel是什么、作用又是什么
 createTime: 2023-1-19
 ---
@@ -188,7 +188,7 @@ var like = lMC.like,
 
 ### 功能
 通过上面对`preset`、`env`的理解跟案例感受，我们能总结出`@babel/preset-env`主要提供以下功能：
-- 它**只**编译`ES6+`语法(上述案例只使用了`ES6+`的语法，并没有用`ES6+`的`API`)
+- 它**只编译`ES6+`语法**(上述案例只使用了`ES6+`的语法，并没有用`ES6+`的`API`)
 - 它并不提供`polyfill`，但是可以通过配置我们代码运行的**目标环境**，从而控制`polyfill`的导入跟语法编译，使`ES6+`的新特性可以在我们想要的**目标环境**中顺利运行
 
 
@@ -261,7 +261,7 @@ const presets = [
 module.exports = {presets};
 ````
 
-我们会发现，终端会报错：
+我们会发现终端报错：
 
 <img src="../md/know-babel/compole-stage-1-2.png" width="100%" />
 
@@ -610,12 +610,10 @@ const usa = new Country();
 
 
 ## 最后
-因为`Babel`的知识体系实在太大了，所以我们应该先把`Babel`主要的几个包弄清楚，再深入配置。关于`Babel`的配置，会后续再出文章。
+因为`Babel`的知识体系实在太大了，所以我们应该先把`Babel`主要的几个包弄清楚，才能更好地深入配置。关于`Babel`的配置，会后续再出文章。
 
 我们平常项目中`Babel`用到的包，基本就是这篇文章中讲解的几个包，这篇文章算是十分详细的介绍了这几个包了。如果大家能把这几个包弄得很清楚，`Babel`的大部分知识也了解的差不多了。
 
-如果之前对`Babel`还有点懵懵的你，希望读完这篇文章后，可以很好的理解`Babel`大致是个什么东西，也能更清楚的看懂官网写的内容。
+文章中有用到`Webpack`，如果你也想了解`Webpack`的知识，可以看看我自己用`Webpack5`搭的脚手架 [webpack5-boilerplate](https://github.com/limingcan562/webpack5-boilerplate)，跟之前我写的这篇文章—— [webpack5优化的地方及搭建的一些体会](https://juejin.cn/post/7077189347941974024)。
 
-中间有用到`Webpack`，我自己用`Webpack5`搭了个脚手架 [webpack5-boilerplate](https://github.com/limingcan562/webpack5-boilerplate)，如果你也想了解`Webpack`的知识，也可以看看之前我写的这篇文章—— [webpack5优化的地方及搭建的一些体会](https://juejin.cn/post/7077189347941974024)。
-
-如果觉得真的有帮助到，**欢迎点赞收藏**；如果有异同点，**欢迎在评论区讨论**。
+如果读完这篇文章的你，觉得真的有帮助到，**欢迎点赞收藏**；如果有异同点，**欢迎在评论区讨论**。

@@ -7,9 +7,13 @@ createTime: 2023-1-19
 ## 前言
 相信很多人对`Babel`都了解，但是差不多是一知半解，很多地方估计是懵懵懂懂的感觉。配置的时候，在网上搜索，然后复制粘贴，能跑通就好，但偶尔会出现一些稀奇古怪的问题。后面想深入了解学习`Babel`，又发现官网读起来晦涩难懂，或者照着官网敲`Demo`，又发现实际结果不是官网说的那样（**其实是因为我们安装的依赖版本有问题，安装成最新的了，所以输出的效果跟官网的不一样**）。这样就造成我们对`Babel`更加的困惑。
 
-因为`Babel`内容实在太多了，所以这篇文章不讲原理，也不讲怎么配置（配置后续会出专门的文章说），但会带着大家一起理解让人觉得“晦涩难懂”的官网，然后梳理、了解，我们平时接触`Babel`用到的主要几个包，搞清楚`Babel`是什么、作用又是什么。
+我们平常项目中`Babel`用到的包，其实不多，基本就是文章中讲解的这几个包，所以如果大家能把这几个包弄得很清楚，`Babel`的大部分知识也了解的差不多了。
 
-为了让大家更好的感受`Babel`对我们日常项目的作用，有些例子会结合`Webpack`，毕竟我们平时的项目，基本都会通过`Webpack`等打包工具跟`Babel`相结合输出最后的包，然后在浏览器中运行。  
+因为`Babel`的内容实在太多了，如果对各个包的了解跟配置一起讲，篇幅实在太长，所以我们把`Babel`拆成两部分来学习：
+- `Babel`了解篇（就是这一篇）
+- `Babel`配置篇（后续会出一个专门讲配置的文章）
+
+文章稍微有点长，因为写的比较详细，并且答疑了一些我们平时看官网不理解的地方，所以希望大家可以静下心来，一个模块一个模块的看，每个模块都是循环渐进的。相信我，看完你一定会对`Babel`有一个**更清晰的理解**。 
 
 章节中的案例，代码都放到 [Github](https://github.com/limingcan562/learn-babel) 上了，建议大家边阅读，边跟着案例看。如果大家觉得有帮助到，欢迎**Star** 跟 **Fork**学习。
 
@@ -184,12 +188,12 @@ var like = lMC.like,
 #### `env`
 `env`指的是环境。因为`@babel/preset-env`还有一个配置功能，我们可以通过配置我们代码运行的**目标环境**，来控制`polyfill`（一个提供低版本浏览器缺失的`ES6+`新特性的方法与实现的集合 ，后面会有更详细的讲解）的导入跟语法编译，从而使`ES6+`新的特性可以在我们想要的**目标环境**中顺利运行。
 
-> 备注：`@babel/preset-env`还有一个配置功能，本文不讲配置，关于配置后续会有文章说明
+> 备注：`@babel/preset-env`的配置功能，后续会有文章说明
 
 ### 功能
 通过上面对`preset`、`env`的理解跟案例感受，我们能总结出`@babel/preset-env`主要提供以下功能：
-- 它**只编译`ES6+`语法**(上述案例只使用了`ES6+`的语法，并没有用`ES6+`的`API`)
-- 它并不提供`polyfill`，但是可以通过配置我们代码运行的**目标环境**，从而控制`polyfill`的导入跟语法编译，使`ES6+`的新特性可以在我们想要的**目标环境**中顺利运行
+- 它**只编译`ES6+`语法**（上述案例只使用了`ES6+`的语法，并没有用`ES6+`的`API`）
+- 它并不提供`polyfill`，但是可以通过**配置**我们代码运行的**目标环境**，从而控制`polyfill`的导入跟语法编译，使`ES6+`的新特性可以在我们想要的**目标环境**中顺利运行
 
 
 ### 注意
@@ -322,7 +326,7 @@ var a = x > 10 ? y > 20 ? "big x, big y" : "big x, small y" : y > 10 ? "small x,
 `ES6+`除了提供很多简洁的语法（`let`、`class`、`() => {}`等）外，还为我们提供了很多便捷的`API`（`Promise`、`Symbol`、`Array.prototype.includes`等）。但**旧版本浏览器是不支持这些`API`的**，而`polyfill`存放了这些`API`的方法与实现，所以它可以使得这些不支持的浏览器，支持这些`API`。
 
 ### 理解
-我们可以把所有这种存放了`ES6+` `API`的**方法与实现的集合**叫做`polyfill`，也就是我们经常说的**垫片**。
+我们可以把所有这种存放了`ES6+` `API`的**方法与实现的集合**叫做`polyfill`，也就是我们经常说的**垫片**。（如果把我们的旧版本浏览器缺失的`API`当做一个个坑，`polyfill`就是用来把这个坑填平）
 
 `polyfill`也分很多种，像`core-js`是会提供旧版本浏览器缺失的**所有**的`API`；还有一些只提供缺失`API`的**某块**，例如 [promise-polyfill](https://github.com/taylorhakes/promise-polyfill[)、[proxy-polyfill](https://github.com/GoogleChrome/proxy-polyfill) 等。
 
@@ -363,14 +367,14 @@ var a = x > 10 ? y > 20 ? "big x, big y" : "big x, small y" : y > 10 ? "small x,
 ### 总结
 所以对于`@babel/polyfill`，我们有以下总结：
 - 这个包由`core-js`（**版本为`2.x.x`**）与`regenerator-runtime`两个包组成
-- 这个包在`Babel 7.4.0`以后就被废弃了，所以在`Babel 7.4.0`以后，我们想让一些不支持`ES6+` `API`的浏览器支持这些`API`，就不应该安装这个包，应该安装`core-js@3.x.x`的包（**不要安装`2.x.x`的版本，已经不维护了，目前最新版本为`3.x.x`**）
+- 这个包在`Babel 7.4.0`以后就废弃了，所以在`Babel 7.4.0`以后，我们想让一些不支持`ES6+` `API`的旧版本浏览器支持这些`API`，应该直接安装`core-js@3.x.x`的包（**不要安装`2.x.x`的版本，已经不维护了，目前最新版本为`3.x.x`**；并且只有`3`的版本才有`stable`这个文件夹）
 
 参考文章：[@babel/polyfill](https://babeljs.io/docs/en/babel-polyfill)
 
 
 ## `core-js`
 ### 概述
-通过上面`polyfill`、`@babel/polyfill`两个模块，我们可以知道`@babel/polyfill`已经不再使用，而且`@babel/polyfill`实现的核心就是`core-js`，所以如果我们想要在旧浏览器用到`Promise`、`Symbol`、`Array.prototype.includes`等方法时，我们直接安装`core-js@3.x.x`这个包。  
+通过上面`polyfill`、`@babel/polyfill`两个模块，我们可以知道它是一个垫片，它会提供旧版本浏览器缺失的**所有**的`API`，如果我们想要在旧浏览器用到`ES6+` `API`时，我们直接安装`core-js@3.x.x`这个包。  
 
 通过 [官方的介绍](https://github.com/zloirock/core-js#babelpolyfill)，我们可以知道：
 ````javascript
@@ -503,7 +507,9 @@ const person  = new Person();
 
 我们再看蓝色框，它是`@babel/runtime`的内容，它在`node_modules/@babel/runtime/helpers`。
 
-我们最后来看看白色框，会发现`Babel`编译后的辅助函数，都可以在`@bable/runtime`里面找到，所以`@babel/runtime`是**存放了`Babel`辅助函数的一个集合包**。
+我们最后来看看白色框，会发现`Babel`编译后的辅助函数，都可以在`@bable/runtime`里面找到。
+
+所以`@babel/runtime`是**存放了`Babel`辅助函数的一个集合包**。
 
 
 参考文章：[@babel/runtime](https://babeljs.io/docs/en/babel-runtime)
@@ -558,7 +564,7 @@ const usa = new Country();
 
 所以`@babel/runtime`跟`@babel/plugin-transform-runtime`两者通常是配合一起使用。
 
-> 备注：`@babel/plugin-transform-runtime`还有一个配置功能，本文不讲配置，关于配置后续会有文章说明
+> 备注：`@babel/plugin-transform-runtime`还有一个配置功能，后续会有文章说明
 
 我们用这个案例 [use-transform-runtime](https://github.com/limingcan562/learn-babel/tree/main/use-transform-runtime) 看看使用了`@babel/plugin-transform-runtime`插件以后有什么变化。
 
@@ -608,8 +614,12 @@ const usa = new Country();
 - 打包后，辅助函数只用了一次，而且不是插入三次，很好的实现了复用
 - 打包出来的体积也变成了`3KB`，很好的缩小了最后包的体积（不要小看缩小了`3KB`，只是因为我用最简单的方式写了`ES6+`语法，实际中我们项目肯定没那么简单）
 
+所以`@babel/runtime`跟`@babel/plugin-transform-runtime`两者配合一起使用，一般来说是可以帮助我们大大减少打包后的体积的。
+
 
 ## 最后
+如果读完这篇文章，你对`Babel`的主要几个包已经有了更清晰的认识，那已经可以更好的深入`Babel`配置了。
+
 因为`Babel`的知识体系实在太大了，所以我们应该先把`Babel`主要的几个包弄清楚，才能更好地深入配置。关于`Babel`的配置，会后续再出文章。
 
 我们平常项目中`Babel`用到的包，基本就是这篇文章中讲解的几个包，这篇文章算是十分详细的介绍了这几个包了。如果大家能把这几个包弄得很清楚，`Babel`的大部分知识也了解的差不多了。

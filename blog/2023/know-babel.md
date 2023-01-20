@@ -1,5 +1,5 @@
 ---
-title: 带你一起梳理Babel各个包，对Babel不要再懵懵懂懂啦
+title: 想弄懂Babel？你必须得先弄清楚这几个包
 des: 学习Babel 7，看懂官方文档，梳理、了解，我们平时接触Babel用到的主要几个包，搞清楚Babel是什么、作用又是什么
 createTime: 2023-1-19
 ---

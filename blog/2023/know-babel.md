@@ -5,17 +5,24 @@ createTime: 2023-1-19
 ---
 
 ## 前言
-相信很多人对`Babel`都了解，但是差不多是一知半解，很多地方估计是懵懵懂懂的感觉。配置的时候，在网上搜索，然后复制粘贴，能跑通就好，但偶尔会出现一些稀奇古怪的问题。后面想深入了解学习`Babel`，又发现官网读起来晦涩难懂，或者照着官网敲`Demo`，又发现实际结果不是官网说的那样（**其实是因为我们安装的依赖版本有问题，安装成最新的了，所以输出的效果跟官网的不一样**）。这样就造成我们对`Babel`更加的困惑。
+相信很多人都知道`Babel`，知道它是用来编译`ES6+`的东西。但是再深入一点，大家都清楚我们平时项目中`Babel`用到的那些包作用是什么吗？为什么要用那几个包？
 
-我们平常项目中`Babel`用到的包，其实不多，基本就是文章中讲解的这几个包，所以如果大家能把这几个包弄得很清楚，`Babel`的大部分知识也了解的差不多了。
+另外，我们平时项目中`Babel`用到的包其实并不多，基本就是文章中讲解的这几个包，所以如果大家能把这几个包弄得很清楚，`Babel`的大部分知识也了解的差不多了。
 
-因为`Babel`的内容实在太多了，如果对各个包的了解跟配置一起讲，篇幅实在太长，所以我们把`Babel`拆成两部分来学习：
-- `Babel`了解篇（就是这一篇）
-- `Babel`配置篇（后续会出一个专门讲配置的文章）
+由于`Babel`内容实在太多，加上配置讲的话，篇幅太长，大家阅读也累。为了让大家更好地理解，我们把`Babel`拆成两部分（`Babel`了解篇，`Babel`配置篇）来学习：
 
-文章稍微有点长，因为写的比较详细，并且答疑了一些我们平时看官网不理解的地方，所以希望大家可以静下心来，一个模块一个模块的看，每个模块都是循环渐进的。相信我，看完你一定会对`Babel`有一个**更清晰的理解**。 
+### `Babel`了解篇
+就是本篇文章。脱离配置`Babel`这块，系统的梳理、介绍、讲解我们平时`Babel`用到的主要几个包。
 
-章节中的案例，代码都放到 [Github](https://github.com/limingcan562/learn-babel) 上了，建议大家边阅读，边跟着案例看。如果大家觉得有帮助到，欢迎**Star** 跟 **Fork**学习。
+### `Babel`配置篇
+当我们在清楚地理解了`Babel`的主要几个包后，我们就能更好地深入`Babel`怎么配置。
+
+> 注意：本篇文章不涉及`Babel`配置篇，后续会专门出文章讲解怎么配置`Babel`。
+
+本篇文章稍微有点长，第一是因为`Babel`本身内容就特别多，第二是因为有些同学看官网的时候，觉得很难懂，所以文章写的比较详细，并且会答疑了一些我们平时看官网难懂的地方，所以希望大家可以静下心来，一个模块一个模块的看，每个模块都是循序渐进的。相信我，看完你一定会对`Babel`有一个**更清晰的理解**。 
+
+
+章节中的案例，代码都放到 [Github](https://github.com/limingcan562/learn-babel-7) 上了，建议大家边阅读，边跟着案例看。如果大家觉得有帮助到，欢迎**Star** 跟 **Fork**学习。
 
 备注：
 - 当前`@babel/core`最新版本是：`7.20.12`
@@ -85,7 +92,7 @@ npx babel index.js
 `Babel`编译`ES6+`**语法**，是通过一个个插件`plugin`去实现的。每年都会有不同新的提案、新的语法，但我们不可能一个个插件去配置，所以就有了`preset`这个东西。因此我们可以理解成`preset`就是一个**语法插件集合包**，这样我们只用安装这一个包，不需要一个个配插件，就可以很方便的编译最新的语法了。
 
 
-我们通过一个不用预设的案例 [no-preset](https://github.com/limingcan562/learn-babel/tree/main/no-preset) ，感受一下如果不用`preset`有多麻烦。
+我们通过一个不用预设的案例 [no-preset](https://github.com/limingcan562/learn-babel-7/tree/main/no-preset) ，感受一下如果不用`preset`有多麻烦。
 ````javascript
 //  入口文件 index.js
 const senses = ['eye', 'nose', 'ear', 'mouth'];
@@ -149,7 +156,7 @@ var like = lMC.like,
 在不用`preset`的情况下，实现上述编译的过程，我基本是用一个`ES6`新语法，我就要去查一个插件，首先我不记得那么多插件，其次一个个插件找真的很累。
 
 
-ok，那我们再用一个使用了预设的案例 [use-preset](https://github.com/limingcan562/learn-babel/tree/main/use-preset) ，感受一下预设到底有多方便。
+ok，那我们再用一个使用了预设的案例 [use-preset](https://github.com/limingcan562/learn-babel-7/tree/main/use-preset) ，感受一下预设到底有多方便。
 我们`npm i @babel/preset-env -D`，修改`babel.config.js`使用`preset`预设：
 
 ````javascript
@@ -224,7 +231,7 @@ var like = lMC.like,
 
 > 官网解释：do { .. } 表达式执行一个块（其中有一个或多个语句），块内的最终语句完成值成为 do 表达式的完成值。
 
-我们借助[官网](https://www.babeljs.cn/docs/babel-plugin-proposal-do-expressions)，整理成这个案例 [compile-stage-1](https://github.com/limingcan562/learn-babel/tree/main/compile-stage-1) 来看看怎么使用小于`stage-4`的语法。
+我们借助[官网](https://www.babeljs.cn/docs/babel-plugin-proposal-do-expressions)，整理成这个案例 [compile-stage-1](https://github.com/limingcan562/learn-babel-7/tree/main/compile-stage-1) 来看看怎么使用小于`stage-4`的语法。
 
 我们先只用`@babel/preset-env`，看看能不能编译`do {...}`这个语法。
 
@@ -346,8 +353,8 @@ var a = x > 10 ? y > 20 ? "big x, big y" : "big x, small y" : y > 10 ? "small x,
 
 
 ### 初识
-我们通过这个例子 [know-babel-polyfill](https://github.com/limingcan562/learn-babel/tree/main/know-babel-polyfill)，来了解一下`@babel/polyfill`的组成。
-[know-babel-polyfill](https://github.com/limingcan562/learn-babel/tree/main/know-babel-polyfill) 什么都没安装，只安装了`@bable/polyfill`这个依赖，我们可以很清楚看到，`@bable/polyfill`由以下两个包组成：
+我们通过这个例子 [know-babel-polyfill](https://github.com/limingcan562/learn-babel-7/tree/main/know-babel-polyfill)，来了解一下`@babel/polyfill`的组成。
+[know-babel-polyfill](https://github.com/limingcan562/learn-babel-7/tree/main/know-babel-polyfill) 什么都没安装，只安装了`@bable/polyfill`这个依赖，我们可以很清楚看到，`@bable/polyfill`由以下两个包组成：
 
 <img src="../md/know-babel/babel-polyfill.jpeg" width="100%" />
 
@@ -412,7 +419,7 @@ import "core-js/stable";
 我们来用两个例子结合`Webpack`打包出来，在浏览器运行，这样更直观的理解感受一下。
 
 #### `Babel < 7.18.0`
-我们用这个例子 [import-regenerator-runtime](https://github.com/limingcan562/learn-babel/tree/main/import-regenerator-runtime) 看看在`Babel 7.18.0`之前为什么要手动引入`regenerator-runtime`这个包。
+我们用这个例子 [import-regenerator-runtime](https://github.com/limingcan562/learn-babel-7/tree/main/import-regenerator-runtime) 看看在`Babel 7.18.0`之前为什么要手动引入`regenerator-runtime`这个包。
 
 > **特别说明：** 我们例子安装`Babel`的版本为`7.16.7`，`@babel/plugin-transform-regenerator`这个插件必须**手动安装为小于`7.18.0`的版本**（因为我们安装依赖的时候，即使指定了依赖的版本，但依赖的依赖安装时，可能会是最新的，这样可能会看不出效果。所以为什么有时我们对着官网敲`Demo`实际出来的结果不一样，因为版本没对上）。可以通过`package-lock.json`查看各个依赖版本
 
@@ -455,7 +462,7 @@ sleep();
 这说明，在`@babel/core`或`@babel/plugin-transform-regenerator`的版本小于`7.18.0`的时候，使用了异步函数（`async function() {}`），或者`Generator`这种函数（`fuction* myGenerator() {}`）的话，是需要我们手动引入`regenerator-runtime`这个包的，因为`regenerator-runtime`**这个包会为我们提供`regeneratorRuntime`这个全局对象**。
 
 #### `Babel >= 7.18.0`
-我们用这个例子 [no-import-regenerator-runtime](https://github.com/limingcan562/learn-babel/tree/main/no-import-regenerator-runtime) 看看在`Babel 7.18.0`之后为什么不需要手动引入`regenerator-runtime`这个包。（`@babel/core`版本为`7.20.12`）
+我们用这个例子 [no-import-regenerator-runtime](https://github.com/limingcan562/learn-babel-7/tree/main/no-import-regenerator-runtime) 看看在`Babel 7.18.0`之后为什么不需要手动引入`regenerator-runtime`这个包。（`@babel/core`版本为`7.20.12`）
 
 ok，来看看我们的入口文件，这时不再手动引入`regenerator-runtime`这个包：
 ````javascript
@@ -487,7 +494,7 @@ sleep();
 ## `@babel/runtime`
 > 官方解释：`@babel/runtime`是一个包含`Babel`模块化运行时助手的库
 
-在`Babel`编译的时候，会有一些辅助函数，这些函数就是`ES6+`一些语法糖的实现，我们用这个案例 [helper-functions](https://github.com/limingcan562/learn-babel/tree/main/helper-functions) 看看辅助函数是什么。
+在`Babel`编译的时候，会有一些辅助函数，这些函数就是`ES6+`一些语法糖的实现，我们用这个案例 [helper-functions](https://github.com/limingcan562/learn-babel-7/tree/main/helper-functions) 看看辅助函数是什么。
 
 我们用`Babel`编译一下`class`这个语法糖：
 ````javascript
@@ -519,7 +526,7 @@ const person  = new Person();
 
 通过上面`@babel/runtime`模块的了解，我们知道当我们使用了一些`ES6+`的语法糖时，`Babel`会生成一些辅助函数来编译这些语法糖，并以**内联的方式插入**到代码中。
 
-那如果我们有10个文件都用到了语法糖，那这些辅助函数，是不是会生成10次，并内联插入10次呢？我们用这个案例 [no-use-transform-runtime](https://github.com/limingcan562/learn-babel/tree/main/no-use-transform-runtime) 来感受一下。
+那如果我们有10个文件都用到了语法糖，那这些辅助函数，是不是会生成10次，并内联插入10次呢？我们用这个案例 [no-use-transform-runtime](https://github.com/limingcan562/learn-babel-7/tree/main/no-use-transform-runtime) 来感受一下。
 
 我们定义了三个文件，每个文件都用了`class`这个语法糖。
 
@@ -566,7 +573,7 @@ const usa = new Country();
 
 > 备注：`@babel/plugin-transform-runtime`还有一个配置功能，后续会有文章说明
 
-我们用这个案例 [use-transform-runtime](https://github.com/limingcan562/learn-babel/tree/main/use-transform-runtime) 看看使用了`@babel/plugin-transform-runtime`插件以后有什么变化。
+我们用这个案例 [use-transform-runtime](https://github.com/limingcan562/learn-babel-7/tree/main/use-transform-runtime) 看看使用了`@babel/plugin-transform-runtime`插件以后有什么变化。
 
 我们的案例代码跟上述一样，只是在`babel.config.js`增加了`@babel/plugin-transform-runtime`配置
 ````javascript

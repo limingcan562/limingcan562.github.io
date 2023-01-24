@@ -18,12 +18,18 @@
 </template>
 
 <script>
+import {mapState} from 'vuex';
 import {gsap}  from 'gsap';
 import TextPlugin from 'gsap/TextPlugin';
 gsap.registerPlugin(TextPlugin);
 
 
 export default {
+    computed: {
+        ...mapState([
+            'githubHomePage'
+        ])
+    },
     data() {
         return {
             startDesText: 'Success',

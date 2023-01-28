@@ -62,7 +62,7 @@ module.exports = {
 
 参考文章：
 - [What is Babel?](https://babeljs.io/docs/en/)
-- [Options](https://www.babeljs.cn/docs/options)
+- [Options](https://babeljs.io/docs/en/options)
 
 ## `@babel/core`
 从`core`可以看出，它是`Babel`实现编译的核心。所以我们如果要使用`Babel`，`@babel/core`这个包一定是必不可少的。另外我们平常说的`Babel 6`、`Babel 7`指的就是`@babele/core`的版本

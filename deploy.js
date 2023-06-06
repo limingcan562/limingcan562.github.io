@@ -9,7 +9,7 @@ const txtView = 'preview in';
 console.log('[deploy]'.bold.yellow, txtStart.bold.yellow);
 ghpages.publish('./dist', {
     branch: 'gh-pages',
-    repo: 'git@github.com:limingcan562/limingcan562.github.io.git',
+    repo: 'https://github.com/limingcan562/limingcan562.github.io.git',
     dotfiles: true,
     message: 'deploy'
 }, err => {
